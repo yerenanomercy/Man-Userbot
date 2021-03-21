@@ -28,7 +28,7 @@ async def help(event):
         for i in CMD_HELP:
             string += "`" + str(i)
             string += "`\t❉ "
-        await event.edit("**✥ Daftar Perintah Untuk Userbot-Man :\n\n**"
+        await event.edit("**✥ Daftar Perintah Untuk Man-Userbot :\n\n**"
                          f"❉{string}❉"
                          "\n")
         await event.reply(f"\n**Ketik Contoh** `.help afk` **Untuk Melihat Informasi Perintah**")

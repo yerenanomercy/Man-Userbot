@@ -20,7 +20,7 @@ import time
 from datetime import datetime
 import psutil
 
-from userbot import ALIVE_LOGO, ALIVE_NAME, BOT_VER, LORD_TEKS_KUSTOM, CMD_HELP, StartTime, UPSTREAM_REPO_BRANCH, bot
+from userbot import ALIVE_LOGO, ALIVE_NAME, BOT_VER, ALIVE_TEKS_KUSTOM, CMD_HELP, StartTime, UPSTREAM_REPO_BRANCH, bot
 from userbot.events import register
 
 
@@ -230,7 +230,7 @@ async def amireallyalive(alive):
     uptime = await get_readable_time((time.time() - StartTime))
     output = (
         f" **┗┓ ✮ USERBOT MAN ✮ ┏┛** \n"
-        f"\n__**{LORD_TEKS_KUSTOM}**__\n"
+        f"\n__**{ALIVE_TEKS_KUSTOM}**__\n"
         f"**━━━━━━━━━━━━━━━**\n"
         f"**✮ Master ✮** \n"
         f" ➥ `{DEFAULTUSER}` \n"

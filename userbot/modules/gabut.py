@@ -67,45 +67,6 @@ async def pingme(pong):
     await pong.edit(f"**NGENTOT!! 🐨**\n**KAMPANG** : %sms\n**Bot Uptime** : {uptime}🕛" % (duration))
 
 
-@register(outgoing=True, pattern='^.a(?: |$)(.*)')
-async def typewriter(typew):
-    typew.pattern_match.group(1)
-    sleep(1)
-    await typew.edit(f"**Haii Salken Saya {DEFAULTUSER}**")
-    sleep(2)
-    await typew.edit("**Assalamualaikum**")
-# Owner @Si_Dian
-
-
-@register(outgoing=True, pattern='^.j(?: |$)(.*)')
-async def typewriter(typew):
-    typew.pattern_match.group(1)
-    sleep(1)
-    await typew.edit(f"**JAKA SEMBUNG BAWA GOLOK**")
-    sleep(3)
-    await typew.edit("**NIMBRUNG GOBLOKK!!!🔥**")
-# Owner @Si_Dian
-
-@register(outgoing=True, pattern='^.k(?: |$)(.*)')
-async def typewriter(typew):
-    typew.pattern_match.group(1)
-    sleep(1)
-    await typew.edit(f"**Hallo KIMAAKK SAYA {DEFAULTUSER}**")
-    sleep(2)
-    await typew.edit("**LU SEMUA NGENTOT 🔥**")
-# Owner @Si_Dian
-
-@register(outgoing=True, pattern='^.ass(?: |$)(.*)')
-async def typewriter(typew):
-    typew.pattern_match.group(1)
-    sleep(1)
-    await typew.edit(f"**Salam Dulu Biar Sopan**")
-    sleep(2)
-    await typew.edit("**السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ**")
-# Owner @mixiologist
-
-
-
 @register(outgoing=True, pattern='^.usange(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
@@ -120,7 +81,5 @@ async def typewriter(typew):
 CMD_HELP.update({
     "fakedyno":
     "`.usange`\
-\nUsage: tipu tipu anjeeeng.\
-\n\n`L`\
-\nUsage: Untuk Menjawab Salam."
+\nUsage: Dynos tipu tipu anjeeeng."
 })

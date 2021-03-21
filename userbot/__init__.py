@@ -3,7 +3,7 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 # inline credit @keselekpermen69
-# Pengguna Lord-Userbot
+# Pengguna Man-Userbot
 """ Userbot initialization. """
 
 import os
@@ -101,9 +101,9 @@ GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/mrismanaziz/Userbot-Man.git")
+    "https://github.com/mrismanaziz/Man-Userbot.git")
 UPSTREAM_REPO_BRANCH = os.environ.get(
-    "UPSTREAM_REPO_BRANCH", "Lord-Userbot")
+    "UPSTREAM_REPO_BRANCH", "alpha")
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
@@ -148,7 +148,7 @@ ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
 
 # untuk perintah .lord
-LORD_TEKS_KUSTOM = os.environ.get("LORD_TEKS_KUSTOM", None)
+ALIVE_TEKS_KUSTOM = os.environ.get("ALIVE_TEKS_KUSTOM", None)
 
 # Default .alive name
 ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
@@ -390,7 +390,7 @@ with bot:
         @tgbot.on(events.NewMessage(pattern="/start"))
         async def handler(event):
             if event.message.from_id != uid:
-                await event.reply("Deploy Userbot Mu Sendiri [Tekan Disini](https://github.com/mrismanaziz/Userbot-Man.git)")
+                await event.reply("Deploy Userbot Mu Sendiri [Tekan Disini](https://github.com/mrismanaziz/Man-Userbot.git)")
             else:
                 await event.reply(f"`Hai {ALIVE_NAME}\n\nApa Kabarmu?`")
 
@@ -403,8 +403,8 @@ with bot:
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.article(
                     "Harap Gunakan .help Untuk Perintah",
-                    text="{}\n\n**❃ Jumlah Module Yang Tersedia:** `{}`\n               \n**❃ Daftar Modul Userbot-Man :** \n".format(
-                        "**✗ Userbot-Man ✗**",
+                    text="{}\n\n**✥ Jumlah Module Yang Tersedia :** `{}`\n               \n**✥ Daftar Modul Man-Userbot :** \n".format(
+                        "**✗ Man-Userbot ✗**",
                         len(dugmeler),
                     ),
                     buttons=buttons,
@@ -418,18 +418,15 @@ with bot:
                     link_preview=True)
             else:
                 result = builder.article(
-                    "**Userbot✗Man**",
-                    text="""**Buat Userbot Anda Sendiri Dengan Cara :** [Tekan Disini](https://github.com/mrismanaziz/Userbot-Man)""",
+                    "**✗ Man-Userbot ✗**",
+                    text="""**Buat Userbot Anda Sendiri Dengan Cara :** [Tekan Disini](https://github.com/mrismanaziz/Man-Userbot)""",
                     buttons=[
                         [
                             custom.Button.url(
                                 "Repo Userbot-Man",
-                                "https://github.com/mrismanaziz/Userbot-Man"),
+                                "https://github.com/mrismanaziz/Man-Userbot"),
                             custom.Button.url(
                                 "Owner Repo",
-                                "t.me/liualvinas"),
-                            custom.Button.url(
-                                "Recode Repo",
                                 "t.me/mrismanaziz")],
                     ],
                     link_preview=False,
