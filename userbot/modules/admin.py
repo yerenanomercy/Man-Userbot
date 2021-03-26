@@ -499,6 +499,8 @@ async def gspider(gspdr):
     if not user:
         return
 
+    self_user = await gspdr.client.get_me()
+
     if user.id == self_user.id:
         return await gspdr.edit(
             "`Tidak Bisa Membisukan Diri Sendiri.. (ヘ･_･)ヘ┳━┳`"
