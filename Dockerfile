@@ -4,7 +4,7 @@ FROM mrismanaziz/userbot-man:latest
 #
 # Clone repo and prepare working directory
 #
-RUN git clone -b alpha https://github.com/mrismanaziz/Man-Userbot/tree/alpha /root/userbot
+RUN git clone -b alpha https://github.com/mrismanaziz/Man-Userbot /root/userbot
 RUN mkdir /root/userbot/.bin
 RUN pip install --upgrade pip setuptools
 WORKDIR /root/userbot
