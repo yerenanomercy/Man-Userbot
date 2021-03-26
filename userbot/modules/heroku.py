@@ -9,6 +9,8 @@ import math
 import os
 import requests
 import asyncio
+import shutil
+import psutil
 
 from userbot import (
     HEROKU_APP_NAME,
@@ -76,10 +78,10 @@ async def variable(var):
                 await var.edit("`Mohon Ubah BOTLOG Ke True`")
                 return False
     elif exe == "del":
-        await var.edit("`Menghapus Config Vars... ヅ`")
+        await var.edit("`Menghapus Config Vars...`")
         variable = var.pattern_match.group(2)
         if variable == '':
-            await var.edit("`Mohon Tentukan Config Vars Yang Mau Anda Hapus`")
+            await var.edit("`Tentukan Config Vars Yang Mau Anda Hapus`")
             return False
         if variable in heroku_var:
             if BOTLOG:
@@ -97,7 +99,7 @@ async def variable(var):
 
 @register(outgoing=True, pattern=r'^.set var (\w*) ([\s\S]*)')
 async def set_var(var):
-    await var.edit("`Sedang Menyetel Config Vars ヅ`")
+    await var.edit("`Processing Config Vars...")
     variable = var.pattern_match.group(1)
     value = var.pattern_match.group(2)
     if variable in heroku_var:
@@ -107,7 +109,7 @@ async def set_var(var):
                 "**Mengganti Config Vars**:\n"
                 f"`{variable}` = `{value}`"
             )
-        await var.edit("`Sedang Proses, Mohon Menunggu Dalam Beberapa Detik ヅ`")
+        await var.edit("`Sedang Proses, Tunggu Dalam Beberapa Detik...`")
     else:
         if BOTLOG:
             await var.client.send_message(
@@ -124,12 +126,85 @@ async def set_var(var):
 """
 
 
+@register(outgoing=True, pattern=r"^.usagee(?: |$)")
+async def dyno_usage(dyno):
+    """
+        Get your account Dyno Usage
+    """
+    dyn = await eor(dyno, "`Processing...`")
+    useragent = (
+        "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Mobile Safari/537.36"
+    )
+    user_id = Heroku.account().id
+    headers = {
+        "User-Agent": useragent,
+        "Authorization": f"Bearer {HEROKU_API_KEY}",
+        "Accept": "application/vnd.heroku+json; version=3.account-quotas",
+    }
+    path = "/accounts/" + user_id + "/actions/get-quota"
+    r = requests.get(heroku_api + path, headers=headers)
+    if r.status_code != 200:
+        return await dyno.edit(
+            "`Error: something bad happened`\n\n" f">.`{r.reason}`\n"
+        )
+    result = r.json()
+    quota = result["account_quota"]
+    quota_used = result["quota_used"]
+    remaining_quota = quota - quota_used
+    percentage = math.floor(remaining_quota / quota * 100)
+    minutes_remaining = remaining_quota / 60
+    hours = math.floor(minutes_remaining / 60)
+    minutes = math.floor(minutes_remaining % 60)
+    App = result["apps"]
+    try:
+        App[0]["quota_used"]
+    except IndexError:
+        AppQuotaUsed = 0
+        AppPercentage = 0
+    else:
+        AppQuotaUsed = App[0]["quota_used"] / 60
+        AppPercentage = math.floor(App[0]["quota_used"] * 100 / quota)
+    AppHours = math.floor(AppQuotaUsed / 60)
+    AppMinutes = math.floor(AppQuotaUsed % 60)
+    total, used, free = shutil.disk_usage(".")
+    cpuUsage = psutil.cpu_percent()
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage("/").percent
+    upload = humanbytes(psutil.net_io_counters().bytes_sent)
+    down = humanbytes(psutil.net_io_counters().bytes_recv)
+    TOTAL = humanbytes(total)
+    USED = humanbytes(used)
+    FREE = humanbytes(free)
+    return await eod(
+        dyn,
+        get_string("usage").format(
+            HEROKU_APP_NAME,
+            AppHours,
+            AppMinutes,
+            AppPercentage,
+            hours,
+            minutes,
+            percentage,
+            TOTAL,
+            USED,
+            FREE,
+            upload,
+            down,
+            cpuUsage,
+            memory,
+            disk,
+        ),
+    )
+
+
 @register(outgoing=True, pattern=r"^.usage(?: |$)")
 async def dyno_usage(dyno):
     """
         Get your account Dyno Usage
     """
-    await dyno.edit("`Mendapatkan Informasi Dyno Heroku Anda ヅ`")
+    await dyno.edit("`Processing Informasi Dyno Heroku..`")
     useragent = (
         'Mozilla/5.0 (Linux; Android 10; SM-G975F) '
         'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -150,7 +225,7 @@ async def dyno_usage(dyno):
                     f"`{r.reason}`",
                     reply_to=dyno.id
                 )
-                await dyno.edit("`Tidak Bisa Mendapatkan Informasi Dyno ヅ`")
+                await dyno.edit("`Gagal Mendapatkan Informasi Dyno`")
                 return False
             result = await r.json()
             quota = result['account_quota']
@@ -168,8 +243,7 @@ async def dyno_usage(dyno):
             for apps in Apps:
                 if apps.get('app_uuid') == app.id:
                     AppQuotaUsed = apps.get('quota_used') / 60
-                    AppPercentage = math.floor(
-                        apps.get('quota_used') * 100 / quota)
+                    AppPercentage = math.floor(apps.get('quota_used') * 100 / quota)
                     break
             else:
                 AppQuotaUsed = 0
@@ -179,15 +253,14 @@ async def dyno_usage(dyno):
             AppMinutes = math.floor(AppQuotaUsed % 60)
 
             await dyno.edit(
-                "**☛ Informasi Dyno**:\n\n╭━┯━━━━━━━━━━━━━━━━┯━╮\n"
-                f"✥ `Penggunaan Dyno` **{app.name}**:\n"
-                f"  ❉ **{AppHours} Jam - "
-                f"{AppMinutes} Menit  -  {AppPercentage}%**"
-                "\n ✲━─━─━─━─━─━─━─━─━─━✲\n"
-                "✥ `Sisa Dyno Bulan Ini`:\n"
-                f"  ❉ **{hours} Jam - {minutes} Menit  "
-                f"-  {percentage}%**\n"
-                "╰━┷━━━━━━━━━━━━━━━━┷━╯"
+        "** Informasi Dyno Heroku :**\n\n"
+        f" -> `Pemakaian Dyno Untuk`  **{app.name}** :\n"
+        f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+        f"**|**  [`{AppPercentage}`**%**]"
+        "\n\n"
+        " -> `Sisa kuota jam dyno bulan ini` :\n"
+        f"     •  `{hours}`**h**  `{minutes}`**m**  "
+        f"**|**  [`{percentage}`**%**]"
             )
             await asyncio.sleep(20)
             await event.delete()
@@ -203,7 +276,7 @@ async def _(dyno):
         return await dyno.reply(
             "`Please make sure your Heroku API Key, Your App name are configured correctly in the heroku var.`"
         )
-    await dyno.edit("`Sedang Mengambil Logs Lord ヅ`")
+    await dyno.edit("`Sedang Mengambil Logs..`")
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
     fd = codecs.open("logs.txt", "r", encoding="utf-8")
@@ -211,7 +284,7 @@ async def _(dyno):
     key = (requests.post("https://nekobin.com/api/documents",
                          json={"content": data}) .json() .get("result") .get("key"))
     url = f"https://nekobin.com/raw/{key}"
-    await dyno.edit(f"`Ini Logs Heroku Anda Lord:`\n\nPaste Ke: [Nekobin]({url})")
+    await dyno.edit(f"**Ini Logs Heroku Anda :`\n\nPaste Ke:** [Nekobin]({url})")
     return os.remove("logs.txt")
 
 
@@ -219,7 +292,7 @@ CMD_HELP.update({"heroku": ">.`usage`"
                  "\nUsage: Check Dyno Heroku"
                  "\n\n>`.set var <NEW VAR> <VALUE>`"
                  "\nUsage: Tambahkan Variabel Baru Atau Memperbarui Variabel"
-                 "\nSetelah Menyetel Variabel Lord-Userbot Akan Di Restart."
+                 "\nSetelah Menyetel Variabel Man-Userbot Akan Di Restart."
                  "\n\n>`.get var or .get var <VAR>`"
                  "\nUsage: Dapatkan Variabel Yang Ada, Gunakan Hanya Di Grup Privasi Anda!"
                  "\nIni Mengembalikan Semua Informasi Pribadi Anda, Harap berhati-hati."
