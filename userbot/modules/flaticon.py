@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup as bs
 from userbot import CMD_HELP
 from userbot.events import register
 
-@register(outgoing=True, pattern="^.flaticon (.*)")
+@register(outgoing=True, pattern=".flaticon ?(.*)")
 async def www(e):
     a = e.pattern_match.group(1)
     if not a:
