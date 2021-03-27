@@ -3,7 +3,7 @@
 import bs4
 import requests
 import re
-from . import *
+from userbot.events import register
 
 langi = "en"
 
