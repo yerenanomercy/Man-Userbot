@@ -8,7 +8,7 @@ from userbot.events import register
 
 langi = "en"
 
-@register(outgoing=True, pattern=r"^\.imdb(?: |$)(.*)")
+@register(outgoing=True, pattern=".imdb ?(.*)")
 async def imdb(e):
     await eor(e, "`...`")
     movie_name = e.pattern_match.group(1)
