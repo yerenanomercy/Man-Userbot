@@ -3,6 +3,7 @@
 import bs4
 import requests
 import re
+from userbot import CMD_HELP
 from userbot.events import register
 
 langi = "en"
