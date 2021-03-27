@@ -248,15 +248,15 @@ async def ban(bon):
     # Shout out the ID, so that fedadmins can fban later
     if reason:
         await bon.edit(r"\\**#Banned_User**//"            
-             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n
-                   **User ID:** `{str(user.id)}`\n
-                   **Reason:** `{reason}`"
+                   f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                   f"**User ID:** `{str(user.id)}`\n"
+                   f"**Reason:** `{reason}`"
         )
     else:
         await bon.edit(r"\\**#Banned_User**//"
-            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n
-                  **User ID:** `{str(user.id)}`\n
-                  **Action:** `Banned User by {ALIVE_NAME}`"
+                  f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                  f"**User ID:** `{str(user.id)}`\n"
+                  f"**Action:** `Banned User by {ALIVE_NAME}`"
         )
     # Announce to the logging group if we have banned the person
     # successfully!
@@ -551,7 +551,7 @@ async def rm_deletedacc(show):
 
     con = show.pattern_match.group(1).lower()
     del_u = 0
-    del_status = "`Tidak Menemukan Akun Terhapus, Grup Bersih`"
+    del_status = "`Grup Bersih, Tidak Menemukan Akun Terhapus.`"
 
     if con != "clean":
         await show.edit("`Mencari Akun Hantu/Terhapus/Zombie...`")
@@ -575,7 +575,7 @@ async def rm_deletedacc(show):
     if not admin and not creator:
         return await show.edit("`Bukan Admin Disini!`")
 
-    await show.edit("`Menghapus Akun Terhapus...\nTunggu Sedang Dalam Proses`")
+    await show.edit("`Menghapus Akun Terhapus... Tunggu Sedang Dalam Proses`")
     del_u = 0
     del_a = 0
 
