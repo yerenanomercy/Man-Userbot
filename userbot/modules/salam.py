@@ -38,7 +38,19 @@ CMD_HELP.update({
     \n\n`.P`\
     \nMenampilkan: salam Kenal dan salam.\
     \n\n`.pe`\
-    \nMenampilkan: Untuk Memberi salam.\
+    \nMenampilkan: Untuk Memberi salam\
     \n\n`.l`\
-    \nMenampilkan: Untuk Menjawab Salam."
+    \nMenampilkan: Untuk Menjawab Salam.\
+    \n\n`.ass`\
+    \nMenampilkan: Salam Bahas arab\
+    \n\n`.sayang`\
+    \nMenampilkan: Kata I Love You.\
+    \n\n`.semangat`\
+    \nMenampilkan: Memberikan Semangat.\
+    \n\n`.ywc`\
+    \nMenampilkan: sama sama.\
+    \n\n`.k`\
+    \nMenampilkan: LU SEMUA NGENTOT 🔥\
+    \n\n`.j`\
+    \nMenampilkan: NIMBRUNG GOBLOKK!!!🔥"
 })
