@@ -30,13 +30,13 @@ from telethon.tl.types import (
     PeerChat,
 )
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG, BOTLOG_CHATID, ALIVE_NAME, CMD_HELP
 from userbot.events import register
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "`Gambar Terlalu Kecil`"
 PP_ERROR = "`Gagal Memproses Gambar`"
-NO_ADMIN = "`Bukan Admin:)`"
+NO_ADMIN = "`Gagal dikarenakan Bukan Admin :)`"
 NO_PERM = "`Tidak Mempunyai Izin!`"
 NO_SQL = "`Berjalan Pada Mode Non-SQL`"
 
@@ -247,12 +247,16 @@ async def ban(bon):
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await bon.edit(
-            f"`PENGGUNA:` [{user.first_name}](tg://user?id={user.id})\n`ID:` `{str(user.id)}` Telah Di Banned !!\n`Alasan:` {reason}"
+        await bon.edit(r"\\**#Banned_User**//"            
+             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n
+                   **User ID:** `{str(user.id)}`\n
+                   **Reason:** `{reason}`"
         )
     else:
-        await bon.edit(
-            f"`PENGGUNA:` [{user.first_name}](tg://user?id={user.id})\n`ID:` `{str(user.id)}` Telah Di Banned !"
+        await bon.edit(r"\\**#Banned_User**//"
+            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n
+                  **User ID:** `{str(user.id)}`\n
+                  **Action:** `Banned User by {ALIVE_NAME}`"
         )
     # Announce to the logging group if we have banned the person
     # successfully!
@@ -277,7 +281,7 @@ async def nothanos(unbon):
         return await unbon.edit(NO_ADMIN)
 
     # If everything goes well...
-    await unbon.edit("`Sedang Melakukan Unban...`")
+    await unbon.edit("`Processing Unban...`")
 
     user = await get_user_from_event(unbon)
     user = user[0]
@@ -326,12 +330,12 @@ async def spider(spdr):
 
     if user.id == self_user.id:
         return await spdr.edit(
-            "`Tidak Bisa Membisukan Diri Sendiri.. (ヘ･_･)ヘ┳━┳`"
+            "`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`"
         )
 
     if user.id == 844432220:
          return await spdr.edit(
-            "`Jangan Ngadi Ngadi itu Pembuat saya`"
+            "`Gagal Mute Ke Man, Dia Adalah Pembuat Saya 🤪`"
         )
 
     # If everything goes well, do announcing and mute
@@ -344,9 +348,15 @@ async def spider(spdr):
 
             # Announce that the function is done
             if reason:
-                await spdr.edit(f"**Telah Dibisukan!**\n**Alasan:** `{reason}`")
+                await spdr.edit(r"\\**#DMute_User**//"
+                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                            f"**User ID:** `{user.id}`\n"
+                            f"**Reason:** `{reason}`")
             else:
-                await spdr.edit("`Telah Dibisukan!`")
+                await spdr.edit(r"\\**#DMute_User**//"
+                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                            f"**User ID:** `{user.id}`\n"
+                            f"**Action:** `DMute by {ALIVE_NAME}`")
 
             # Announce to logging group
             if BOTLOG:
@@ -390,7 +400,7 @@ async def unmoot(unmot):
 
         try:
             await unmot.client(EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-            await unmot.edit("```Berhasil Melakukan Unmute! Pengguna Sudah Tidak Lagi Dibisukan```")
+            await unmot.edit("```Berhasil Melakukan Unmute! User Sudah Tidak Lagi Dibisukan```")
             await sleep(3)
             await unmot.delete()
         except UserIdInvalidError:
@@ -503,12 +513,12 @@ async def gspider(gspdr):
 
     if user.id == self_user.id:
         return await gspdr.edit(
-            "`Tidak Bisa Membisukan Diri Sendiri.. (ヘ･_･)ヘ┳━┳`"
+            "`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`"
         )
 
     if user.id == 844432220:
         return await gspdr.edit(
-            "`Jangan Ngadi Ngadi itu Pembuat saya`"
+            "`Gagal Global Mute Ke Man, Dia Adalah Pembuat Saya 🤪`"
         )
 
     # If pass, inform and start gmuting
@@ -517,9 +527,15 @@ async def gspider(gspdr):
         await gspdr.edit("`Kesalahan! Pengguna Sudah Dibisukan.`")
     else:
         if reason:
-            await gspdr.edit(f"**Dibisukan Secara Global!**\n**Alasan:** `{reason}`")
+            await gspdr.edit(r"\\**#GMuted_User**//"
+                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                            f"**User ID:** `{user.id}`\n"
+                            f"**Reason:** `{reason}`")
         else:
-            await gspdr.edit("`Berhasil Membisukan Pengguna Secara Global!`")
+            await gspdr.edit(r"\\**#GMuted_User**//"
+                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                            f"**User ID:** `{user.id}`\n"
+                            f"**Action:** `Global Muted by {ALIVE_NAME}`")
 
         if BOTLOG:
             await gspdr.client.send_message(
@@ -559,7 +575,7 @@ async def rm_deletedacc(show):
     if not admin and not creator:
         return await show.edit("`Bukan Admin Disini!`")
 
-    await show.edit("`Menghapus Akun Terhapus...\nMohon Menunggu Sedang Dalam Proses`")
+    await show.edit("`Menghapus Akun Terhapus...\nTunggu Sedang Dalam Proses`")
     del_u = 0
     del_a = 0
 
