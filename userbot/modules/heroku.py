@@ -179,23 +179,18 @@ async def dyno_usage(dyno):
     FREE = humanbytes(free)
     return await eod(
         dyn,
-        get_string("usage").format(
-            HEROKU_APP_NAME,
-            AppHours,
-            AppMinutes,
-            AppPercentage,
-            hours,
-            minutes,
-            percentage,
-            TOTAL,
-            USED,
-            FREE,
-            upload,
-            down,
-            cpuUsage,
-            memory,
-            disk,
-        ),
+        "**⚙️ Dyno Heroku Usage ⚙️**:\n\n"
+        + f" -> `Pemakaian Dyno Untuk`  **{app.name}**:\n"
+        + f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+        + f"**|**  [`{AppPercentage}`**%**]"
+        + "\n\n"
+        + " -> `Sisa kuota jam dyno bulan ini`:\n"
+        + f"     •  `{hours}`**h**  `{minutes}`**m**  "
+        + f"**|**  [`{percentage}`**%**]\n\n"
+        + f"**Total Disk Space: {TOTAL}\n\n**"
+        + f"**Used: {USED}  Free: {FREE}\n\n**"
+        + f"**📊Data Usage📊\n\nUpload: {upload}\nDown: {down}\n\n**"
+        + f"**CPU: {cpuUsage}%\nRAM: {memory}%\nDISK: {disk}%**",
     )
 
 
