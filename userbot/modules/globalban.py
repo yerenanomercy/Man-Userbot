@@ -214,7 +214,7 @@ async def gunben(userbot):
     return await dark.edit(
         r"\\**#UnGbanned_User**//"
         f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-        f"**User ID:** `{user.id}`"
+        f"**User ID:** `{user.id}`\n"
         f"**Action:** `UnGBanned by {ALIVE_NAME}`"
     )
 
