@@ -3,14 +3,14 @@
 import bs4
 import requests
 import re
-from userbot import CMD_HELP
+from userbot import CMD_HELP, bot
 from userbot.events import register
 
 langi = "en"
 
-@register(outgoing=True, pattern=".imdb ?(.*)")
+@register(outgoing=True, pattern=".imdb ?(.*)", disable_errors=True)
 async def imdb(e):
-    await eor(e, "`...`")
+    await eor(e, "`Processing...`")
     movie_name = e.pattern_match.group(1)
     if not movie_name:
         return await eor(e, "`Berikan nama filmnya`")
