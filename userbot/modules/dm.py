@@ -2,10 +2,10 @@ import os
 import re
 from telethon import *
 from userbot import bot
-from userbot.utils import admin_cmd
+from userbot.events import register
 from userbot import CMD_HELP
 
-@borg.on(admin_cmd(pattern="dm ?(.*)"))
+@register(outgoing=True, pattern=".dm ?(.*)", disable_errors=True)
 async def _(dc):
  
     d = dc.pattern_match.group(1)
