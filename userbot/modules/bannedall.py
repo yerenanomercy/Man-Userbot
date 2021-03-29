@@ -12,10 +12,10 @@ from telethon.tl.types import (ChannelParticipantsKicked, ChatBannedRights,
                                UserStatusOnline, UserStatusRecently)
 
 from userbot.events import register
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 
 
-@register(outgoing=True, pattern=".rmusers ?(.*)", disable_errors=True)
+@register(outgoing=True, pattern=".rmusers ?(.*)")
 async def _(event):
     xx = await eor(event, "`Searching Participant Lists...`")
     input_str = event.pattern_match.group(1)
