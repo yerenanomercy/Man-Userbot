@@ -35,12 +35,12 @@ async def _(e):
         if isinstance(x, onn):
             o = o + 1
             if "on" in okk:
-                xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
+                xx += f"⚜️ \n[{get_display_name(bb)}](tg://user?id={bb.id})"
         if isinstance(x, off):
             nn = nn + 1
             if "off" in okk:
                 if not (bb.bot or bb.deleted):
-                    xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
+                    xx += f"⚜️ \n[{get_display_name(bb)}](tg://user?id={bb.id})"
         if isinstance(x, rec):
             rece = rece + 1
             if "rec" in okk:
@@ -48,17 +48,17 @@ async def _(e):
                     xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
         if isinstance(y, owner):
             if "admin" or "owner" in okk:
-                xx += f"\n꧁[{get_display_name(bb)}](tg://user?id={bb.id})꧂"
+                xx += f"\n👑 [{get_display_name(bb)}](tg://user?id={bb.id}) 👑"
         if isinstance(y, admin):
             if "admin" in okk:
                 if not bb.deleted:
-                    xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
+                    xx += f"⚜️ \n[{get_display_name(bb)}](tg://user?id={bb.id})"
         if "all" in okk:
             if not (bb.bot or bb.deleted):
-                xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
+                xx += f"⚜️ \n[{get_display_name(bb)}](tg://user?id={bb.id})"
         if "bot" in okk:
             if bb.bot:
-                xx += f"\n[{get_display_name(bb)}](tg://user?id={bb.id})"
+                xx += f"⚜️ \n[{get_display_name(bb)}](tg://user?id={bb.id})"
     await e.client.send_message(e.chat_id, xx)
     await e.delete()
 
@@ -66,17 +66,17 @@ async def _(e):
 CMD_HELP.update({
     "tagger":
     "`.tagall`\
-    \nUsage: Tag Top 100 Members of chat.\
+    \nUsage: Tag Top 100 Members di group chat.\
     \n\n`.tagadmins`\
-    \nMenampilkan: Tag Admins of that chat.\
+    \nUsage: Tag Admins di group chat.\
     \n\n`.tagowner`\
-    \nMenampilkan: Tag Owner of that chat\
+    \nUsage: Tag Owner group chat\
     \n\n`.tagbots`\
-    \nMenampilkan: Tag Bots of that chat.\
+    \nUsage: Tag Bots group chat.\
     \n\n`.tagrec`\
-    \nMenampilkan: Tag recently Active Members.\
+    \nUsage: Tag Member yang Baru Aktif.\
     \n\n`.tagon`\
-    \nMenampilkan: Tag online Members(work only if privacy off)\
+    \nUsage: Tag online Members (hanya berfungsi jika privasi dimatikan)\
     \n\n`.tagoff`\
-    \nMenampilkan: Tag Offline Members(work only if privacy off)"
+    \nUsage: Tag Offline Members (hanya berfungsi jika privasi dimatikan)"
 })
