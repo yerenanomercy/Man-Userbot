@@ -15,14 +15,14 @@ from userbot.events import register
 from userbot import CMD_HELP, bot
 
 
-@register(outgoing=True, pattern=".rmusers ?(.*)",groups_only=True, disable_errors=True)
+@register(outgoing=True, pattern=".rmusers ?(.*)", disable_errors=True)
 async def _(event):
     xx = await eor(event, "`Searching Participant Lists...`")
     input_str = event.pattern_match.group(1)
     if input_str:
         chat = await event.get_chat()
         if not (chat.admin_rights or chat.creator):
-            return await eod(xx, "`You aren't an admin here!`", time=5)
+            return await eod(xx, "`Master Bukan admin Disini !`", time=5)
     p = 0
     b = 0
     c = 0
