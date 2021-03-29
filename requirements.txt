@@ -92,3 +92,5 @@ scipy
 wordcloud
 pendulum
 Pillow
+humanbytes
+imagedown
