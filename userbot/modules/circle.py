@@ -23,27 +23,24 @@ async def _(event):
     if reply_message.sender.bot:
         await edit_or_reply(event, "Reply to actual users message.")
         return
-    kraken = await edit_or_reply(event, "Trying to convert...")
+    await event.edit("Trying to convert...")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=397367589)
+                events.NewMessage(incoming=True, from_users=1247032902)
             )
             await event.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await kraken.edit("```unblock @TelescopyBot dan coba lagi```")
+            await event.edit("```unblock @TelescopyBot dan coba lagi```")
             return
         if response.text.startswith("Forward"):
-            await kraken.edit(
+            await event.edit(
                 "```Bisakah Master menonaktifkan pengaturan privasi forward pesan untuk selamanya?```"
             )
         else:
-            await kraken.delete()
-            await event.client.send_file(
-                event.chat_id,
-                response.message.media,
-            )
+            await event.delete()
+            await event.client.send_file(event.chat_id, response.message.media,)
             await event.client.send_read_acknowledge(conv.chat_id)
 
 CMD_HELP.update(
