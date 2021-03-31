@@ -5,7 +5,7 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.events import register
-from userbot import CMD_HELP, bot, TEMP_DOWNLOAD_DIRECTORY
+from userbot import CMD_HELP
 
 @register(outgoing=True, pattern=".circle ?(.*)")
 async def _(event):
@@ -35,26 +35,13 @@ async def _(event):
             await event.edit("```unblock @TelescopyBot dan coba lagi```")
             return
         if response.text.startswith("Forward"):
-            await event.edit("```Nonaktifkan pengaturan privasi forward```")
+            await event.edit(
+                "```Bisakah Master menonaktifkan pengaturan privasi forward pesan untuk selamanya?```"
+            )
         else:
-                downloaded_file_name = await event.client.download_media(
-                response.media, TEMP_DOWNLOAD_DIRECTORY
-            )
-            await event.client.send_file(
-                event.chat_id,
-                downloaded_file_name,
-                force_document=False,
-                reply_to=message_id_to_reply,
-            )
-            """ - cleanup chat after completed - """
-            if msg_reply is not None:
-                await event.client.delete_messages(
-                    conv.chat_id, [msg.id, msg_reply.id, r.id, response.id]
-                )
-            else:
-                await event.client.delete_messages(conv.chat_id, [msg.id, response.id])
-    await event.delete()
-    return os.remove(downloaded_file_name)
+            await event.delete()
+            await event.client.send_file(event.chat_id, response.message.media,)
+            await event.client.send_read_acknowledge(conv.chat_id)
 
 CMD_HELP.update(
     {
