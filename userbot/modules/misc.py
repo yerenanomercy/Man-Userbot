@@ -120,21 +120,19 @@ async def repeat(rep):
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        f"┏━━━━━━━━━━\n"
-        f"┣ ✥ **Repo Userbot :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot)\n"
-        f"┣ ✥ **Grup Userbot :** [Sharing Userbot](t.me/sharinguserbot)\n"
-        f"┣ ✥ **Pemilik Repo :** [Risman](t.me/mrismanaziz)\n"
-        f"┣ ✥ **Thanks To    :** [Alvin](t.me/liualvinas)\n"
-        f"┗━━━━━━━━━━\n"
+        f"**Hey,** __I am using__ 🔥 **Man-Userbot** 🔥\n\n"
+        f"      __Thanks For Using me__\n\n"
+        f"✣ **Userbot Version :** `4.1@Man-Userbot`\n"
+        f"✣ **Group Support :** [Sharing Userbot](t.me/sharinguserbot)\n"
+        f"✣ **Owner Repo :** [Risman](t.me/mrismanaziz)\n"
+        f"✣ **Repo :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot)\n"
     )
 
 @register(outgoing=True, pattern="^.string$")
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        f"┏━━━━━━━━━━\n"
-        f"┣ ✥ **GET STRING SESSION :** [KLIK DISINI](https://repl.it/@mrismanaziz/stringenSession?lite=1&outputonly=1)\n"
-        f"┗━━━━━━━━━━\n"
+        f"✥ **GET STRING SESSION TELEGRAM :** [KLIK DISINI](https://repl.it/@mrismanaziz/stringenSession?lite=1&outputonly=1)\n"
     )
 
 
