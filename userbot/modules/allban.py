@@ -5,7 +5,7 @@
 from asyncio import sleep
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins, ChatAdminRights
 from telethon.tl.functions.channels import EditBannedRequest
-from userbot.events import 
+from userbot.events import register
 from userbot import bot, CMD_HELP
 
 
