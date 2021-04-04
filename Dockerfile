@@ -1,5 +1,5 @@
 # We're using Ubuntu 20.10
-FROM mrismanaziz/userbot-man:latest
+FROM koala21/kampangbot:buster
 
 #
 # Clone repo and prepare working directory
