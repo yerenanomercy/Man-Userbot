@@ -54,6 +54,7 @@ async def pingme(pong):
                     f"✣ **Uptime -** `{uptime}` \n"
                     f"**✦҈͜͡Owner :** `{ALIVE_NAME}`" % (duration))
 
+
 @register(outgoing=True, pattern="^.pink$")
 async def pingme(pong):
     """ For .ping command, ping the userbot from any chat.  """
@@ -63,6 +64,7 @@ async def pingme(pong):
     end = datetime.now()
     duration = (end - start).microseconds / 1000
     await pong.edit(f"**PONG!!✨**\n**Pinger** - `%sms`\n**Bot Uptime** - `{uptime}`" % (duration))
+
 
 @register(outgoing=True, pattern="^.ungu$")
 async def pingme(pong):
@@ -153,6 +155,7 @@ async def pingme(pong):
     end = datetime.now()
     duration = (end - start).microseconds / 9000
     await pong.edit("🏓 **Ping!**\n`%sms`" % (duration))
+
 
 @register(outgoing=True, pattern='^.usange(?: |$)(.*)')
 async def typewriter(typew):

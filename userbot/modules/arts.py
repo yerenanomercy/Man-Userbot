@@ -1,12 +1,9 @@
-# @mrismanaziz 
+# @mrismanaziz
 # t.me/sharinguserbot
 
 
-from time import sleep
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
-from telethon import events
-import asyncio
 
 
 @register(outgoing=True, pattern='^.frog(?: |$)(.*)')
@@ -75,7 +72,6 @@ async def typewriter(typew):
     )
 
 
-
 @register(outgoing=True, pattern='^.scina(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
@@ -99,46 +95,45 @@ async def typewriter(typew):
     )
 
 
-
 @register(outgoing=True, pattern='^.wlcm(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
-    "───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───\n"
-    "───█▒▒░░░░░░░░░▒▒█───\n"
-    "────█░░█░░░░░█░░█────\n"
-    "─▄▄──█░░░▀█▀░░░█──▄▄─\n"
-    "█░░█─▀▄░░░░░░░▄▀─█░░█\n"
-    "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n"
-    "█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█\n"
-    "█░░║║║╠─║─║─║║║║║╠─░░█\n"
-    "█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█\n"
-    "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n")
+        "───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───\n"
+        "───█▒▒░░░░░░░░░▒▒█───\n"
+        "────█░░█░░░░░█░░█────\n"
+        "─▄▄──█░░░▀█▀░░░█──▄▄─\n"
+        "█░░█─▀▄░░░░░░░▄▀─█░░█\n"
+        "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n"
+        "█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█\n"
+        "█░░║║║╠─║─║─║║║║║╠─░░█\n"
+        "█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█\n"
+        "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n")
 
 
 @register(outgoing=True, pattern='^.gta(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
-    "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
-    "⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⡀⠀⠀⠀⠀⠀⠀\n"
-    "⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀\n"
-    "⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⠟⠀⠀⠀⠀⠀⠀\n"
-    "⠀⠀⠀⠀⠀⠀⠀⠘⠻⣿⣷⣄⠀⠀⠀⠀⠀\n"
-    "⠀⠀⠀⠀⣴⣶⣿⡆⠀⠀⠉⠉⠀⠈⣶⡆⠀\n"
-    "⠀⠀⠀⢠⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⢻⣷⠀\n"
-    "⠀⠀⠀⣼⣿⡿⠟⠀⠀⠀⠀⠀⠀⠀⣸⣿⡄\n"
-    "⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣷\n"
-    "⠀⠀⠘⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⢰⣾⣿⠏\n"
-    "⠀⢠⣧⡔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠟⠁⠀\n"
-    "⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Ah\n shit, here we go again.\n")
+        "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n"
+        "⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⡀⠀⠀⠀⠀⠀⠀\n"
+        "⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀\n"
+        "⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⠟⠀⠀⠀⠀⠀⠀\n"
+        "⠀⠀⠀⠀⠀⠀⠀⠘⠻⣿⣷⣄⠀⠀⠀⠀⠀\n"
+        "⠀⠀⠀⠀⣴⣶⣿⡆⠀⠀⠉⠉⠀⠈⣶⡆⠀\n"
+        "⠀⠀⠀⢠⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⢻⣷⠀\n"
+        "⠀⠀⠀⣼⣿⡿⠟⠀⠀⠀⠀⠀⠀⠀⣸⣿⡄\n"
+        "⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣷\n"
+        "⠀⠀⠘⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⢰⣾⣿⠏\n"
+        "⠀⢠⣧⡔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠟⠁⠀\n"
+        "⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Ah\n shit, here we go again.\n")
 
 
 @register(outgoing=True, pattern='^.sthink(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
-   	    "⠀⠀⠀⠀⢀⣀⣀⣀\n"
+        "⠀⠀⠀⠀⢀⣀⣀⣀\n"
         "⠀⠀⠀⠰⡿⠿⠛⠛⠻⠿⣷\n"
         "⠀⠀⠀⠀⠀⠀⣀⣄⡀⠀⠀⠀⠀⢀⣀⣀⣤⣄⣀⡀\n"
         "⠀⠀⠀⠀⠀⢸⣿⣿⣷⠀⠀⠀⠀⠛⠛⣿⣿⣿⡛⠿⠷\n"

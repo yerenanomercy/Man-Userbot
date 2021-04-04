@@ -1,7 +1,6 @@
 # Recode by @mrismanaziz
 # @sharinguserbot
 
-from telethon import events, functions, types
 from userbot.events import register
 from userbot import CMD_HELP
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest

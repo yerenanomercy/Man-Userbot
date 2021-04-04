@@ -7,6 +7,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.events import register
 from userbot import CMD_HELP
 
+
 @register(outgoing=True, pattern=".circle ?(.*)")
 async def _(event):
     if event.fwd_from:

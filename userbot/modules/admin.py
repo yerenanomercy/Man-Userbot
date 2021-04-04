@@ -247,17 +247,17 @@ async def ban(bon):
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await bon.edit(r"\\**#Banned_User**//"            
-                   f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                   f"**User ID:** `{str(user.id)}`\n"
-                   f"**Reason:** `{reason}`"
-        )
+        await bon.edit(r"\\**#Banned_User**//"
+                       f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                       f"**User ID:** `{str(user.id)}`\n"
+                       f"**Reason:** `{reason}`"
+                       )
     else:
         await bon.edit(r"\\**#Banned_User**//"
-                  f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                  f"**User ID:** `{str(user.id)}`\n"
-                  f"**Action:** `Banned User by {ALIVE_NAME}`"
-        )
+                       f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                       f"**User ID:** `{str(user.id)}`\n"
+                       f"**Action:** `Banned User by {ALIVE_NAME}`"
+                       )
     # Announce to the logging group if we have banned the person
     # successfully!
     if BOTLOG:
@@ -334,7 +334,7 @@ async def spider(spdr):
         )
 
     if user.id == 844432220:
-         return await spdr.edit(
+        return await spdr.edit(
             "`Gagal Mute Ke Man, Dia Adalah Pembuat Saya 🤪`"
         )
 
@@ -349,14 +349,14 @@ async def spider(spdr):
             # Announce that the function is done
             if reason:
                 await spdr.edit(r"\\**#DMute_User**//"
-                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                            f"**User ID:** `{user.id}`\n"
-                            f"**Reason:** `{reason}`")
+                                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                                f"**User ID:** `{user.id}`\n"
+                                f"**Reason:** `{reason}`")
             else:
                 await spdr.edit(r"\\**#DMute_User**//"
-                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                            f"**User ID:** `{user.id}`\n"
-                            f"**Action:** `DMute by {ALIVE_NAME}`")
+                                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                                f"**User ID:** `{user.id}`\n"
+                                f"**Action:** `DMute by {ALIVE_NAME}`")
 
             # Announce to logging group
             if BOTLOG:
@@ -528,14 +528,14 @@ async def gspider(gspdr):
     else:
         if reason:
             await gspdr.edit(r"\\**#GMuted_User**//"
-                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                            f"**User ID:** `{user.id}`\n"
-                            f"**Reason:** `{reason}`")
+                             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                             f"**User ID:** `{user.id}`\n"
+                             f"**Reason:** `{reason}`")
         else:
             await gspdr.edit(r"\\**#GMuted_User**//"
-                            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                            f"**User ID:** `{user.id}`\n"
-                            f"**Action:** `Global Muted by {ALIVE_NAME}`")
+                             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                             f"**User ID:** `{user.id}`\n"
+                             f"**Action:** `Global Muted by {ALIVE_NAME}`")
 
         if BOTLOG:
             await gspdr.client.send_message(

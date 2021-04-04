@@ -1,4 +1,4 @@
-#Recode by @mrismanaziz
+# Recode by @mrismanaziz
 
 from datetime import datetime
 import time
@@ -55,6 +55,7 @@ async def pingme(pong):
                     f"**✲ 𝙱𝙸𝙹𝙸 𝙿𝙴𝙻𝙴𝚁** "
 
                     f"\n ⫸ ᴷᵃᵐᵖᵃⁿᵍ『`{ALIVE_NAME}`』 \n" % (duration))
+
 
 @register(outgoing=True, pattern="^.kping$")
 async def pingme(pong):

@@ -238,7 +238,8 @@ async def dyno_usage(dyno):
             for apps in Apps:
                 if apps.get('app_uuid') == app.id:
                     AppQuotaUsed = apps.get('quota_used') / 60
-                    AppPercentage = math.floor(apps.get('quota_used') * 100 / quota)
+                    AppPercentage = math.floor(
+                        apps.get('quota_used') * 100 / quota)
                     break
             else:
                 AppQuotaUsed = 0
@@ -248,14 +249,14 @@ async def dyno_usage(dyno):
             AppMinutes = math.floor(AppQuotaUsed % 60)
 
             await dyno.edit(
-        "** Informasi Dyno Heroku :**\n\n"
-        f" -> `Pemakaian Dyno Untuk`  **{app.name}** :\n"
-        f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
-        f"**|**  [`{AppPercentage}`**%**]"
-        "\n\n"
-        " -> `Sisa kuota jam dyno bulan ini` :\n"
-        f"     •  `{hours}`**h**  `{minutes}`**m**  "
-        f"**|**  [`{percentage}`**%**]"
+                "** Informasi Dyno Heroku :**\n\n"
+                f" -> `Pemakaian Dyno Untuk`  **{app.name}** :\n"
+                f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+                f"**|**  [`{AppPercentage}`**%**]"
+                "\n\n"
+                " -> `Sisa kuota jam dyno bulan ini` :\n"
+                f"     •  `{hours}`**h**  `{minutes}`**m**  "
+                f"**|**  [`{percentage}`**%**]"
             )
             await asyncio.sleep(20)
             await event.delete()

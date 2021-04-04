@@ -8,6 +8,7 @@ from userbot.events import register
 
 langi = "en"
 
+
 @register(outgoing=True, pattern=".imdb ?(.*)", disable_errors=True)
 async def imdb(e):
     if e.fwd_from:
@@ -17,15 +18,15 @@ async def imdb(e):
         remove_space = movie_name.split(" ")
         final_name = "+".join(remove_space)
         page = requests.get(
-            "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
-        )
+            "https://www.imdb.com/find?ref_=nv_sr_fn&q=" +
+            final_name +
+            "&s=all")
         str(page.status_code)
         soup = bs4.BeautifulSoup(page.content, "lxml")
         odds = soup.findAll("tr", "odd")
         mov_title = odds[0].findNext("td").findNext("td").text
-        mov_link = (
-            "http://www.imdb.com/" + odds[0].findNext("td").findNext("td").a["href"]
-        )
+        mov_link = ("http://www.imdb.com/" +
+                    odds[0].findNext("td").findNext("td").a["href"])
         page1 = requests.get(mov_link)
         soup = bs4.BeautifulSoup(page1.content, "lxml")
         if soup.find("div", "poster"):
@@ -59,7 +60,8 @@ async def imdb(e):
             actors.pop()
             stars = actors[0] + "," + actors[1] + "," + actors[2]
         if soup.find("div", "inline canwrap"):
-            story_line = soup.find("div", "inline canwrap").findAll("p")[0].text
+            story_line = soup.find(
+                "div", "inline canwrap").findAll("p")[0].text
         else:
             story_line = "Not available"
         info = soup.findAll("div", "txt-block")
@@ -78,31 +80,31 @@ async def imdb(e):
                 mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
-        await edit_or_reply(e, 
-            "<a href=" + poster + ">&#8203;</a>"
-            "<b>Title : </b><code>"
-            + mov_title
-            + "</code>\n<code>"
-            + mov_details
-            + "</code>\n<b>Rating : </b><code>"
-            + mov_rating
-            + "</code>\n<b>Country : </b><code>"
-            + mov_country[0]
-            + "</code>\n<b>Language : </b><code>"
-            + mov_language[0]
-            + "</code>\n<b>Director : </b><code>"
-            + director
-            + "</code>\n<b>Writer : </b><code>"
-            + writer
-            + "</code>\n<b>Stars : </b><code>"
-            + stars
-            + "</code>\n<b>IMDB Url : </b>"
-            + mov_link
-            + "\n<b>Story Line : </b>"
-            + story_line,
-            link_preview=True,
-            parse_mode="HTML",
-        )
+        await edit_or_reply(e,
+                            "<a href=" + poster + ">&#8203;</a>"
+                            "<b>Title : </b><code>"
+                            + mov_title
+                            + "</code>\n<code>"
+                            + mov_details
+                            + "</code>\n<b>Rating : </b><code>"
+                            + mov_rating
+                            + "</code>\n<b>Country : </b><code>"
+                            + mov_country[0]
+                            + "</code>\n<b>Language : </b><code>"
+                            + mov_language[0]
+                            + "</code>\n<b>Director : </b><code>"
+                            + director
+                            + "</code>\n<b>Writer : </b><code>"
+                            + writer
+                            + "</code>\n<b>Stars : </b><code>"
+                            + stars
+                            + "</code>\n<b>IMDB Url : </b>"
+                            + mov_link
+                            + "\n<b>Story Line : </b>"
+                            + story_line,
+                            link_preview=True,
+                            parse_mode="HTML",
+                            )
     except IndexError:
         await edit_or_reply(e, "Plox enter **Valid movie name** kthx")
 

@@ -111,6 +111,7 @@ async def kickme(leave):
     await leave.edit("`Master has left this group, byeツ`")
     await leave.client.kick_participant(leave.chat_id, 'me')
 
+
 @register(outgoing=True, pattern="^.kikme$")
 async def kickme(leave):
     """ Basically it's .kickme command """

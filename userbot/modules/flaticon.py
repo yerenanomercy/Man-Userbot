@@ -5,8 +5,9 @@ import random
 import urllib
 import requests
 from bs4 import BeautifulSoup as bs
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
+
 
 @register(outgoing=True, pattern=".flaticon ?(.*)", disable_errors=True)
 async def www(e):

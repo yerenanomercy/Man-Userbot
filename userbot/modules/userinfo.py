@@ -12,6 +12,7 @@ from telethon.utils import get_input_location
 from userbot.events import register
 from userbot import CMD_HELP
 
+
 @register(outgoing=True, pattern="^.info ?(.*)", disable_errors=True)
 async def _(event):
     if event.fwd_from:
@@ -29,7 +30,7 @@ async def _(event):
     replied_user_profile_photos_count = "NaN"
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
-    except AttributeError as e:
+    except AttributeError:
         pass
     user_id = replied_user.user.id
     first_name = html.escape(replied_user.user.first_name)
@@ -46,7 +47,7 @@ async def _(event):
         dc_id, location = get_input_location(replied_user.profile_photo)
     except Exception as e:
         dc_id = "`Nᴏ Pʀᴏғɪʟᴇ Pɪᴄ Fᴏᴜɴᴅ`"
-        location = str(e)
+        str(e)
     caption = """<b>Exᴛʀᴀᴄᴛᴇᴅ Usᴇʀ Iɴғᴏ Bʏ ᴍᴀɴ-ᴜꜱᴇʀʙᴏᴛ</b>\n
 <b>┏━━━━━━━━━━━━━━━━━━━━━</b>
 <b>┣ Usᴇʀ Iᴅ</b>: <code>{}</code>
@@ -115,7 +116,9 @@ async def get_full_user(event):
         if event.message.entities is not None:
             mention_entity = event.message.entities
             probable_user_mention_entity = mention_entity[0]
-            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+            if isinstance(
+                    probable_user_mention_entity,
+                    MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 replied_user = await event.client(GetFullUserRequest(user_id))
                 return replied_user, None

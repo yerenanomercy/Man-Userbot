@@ -62,6 +62,7 @@ async def _(event):
 
             await event.edit(animation_chars[i % 32])
 
+
 @register(outgoing=True, pattern="^.sayang$")
 async def koc(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -491,6 +492,7 @@ async def typewriter(typew):
     await typew.edit("`Tapi Bo'ong`")
 # Create by myself @localheart
 
+
 @register(outgoing=True, pattern='^.helikopter(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
@@ -727,6 +729,7 @@ async def typewriter(typew):
     sleep(1)
     await typew.edit("**♪┗ ( ･o･) ┓♪┏ (・o･) ┛♪**")
 
+
 @register(outgoing=True, pattern="^.hua$")
 async def koc(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -893,7 +896,6 @@ async def _(event):
             await asyncio.sleep(animation_interval)
 
             await event.edit(animation_chars[i % 6])
-
 
 
 CMD_HELP.update({

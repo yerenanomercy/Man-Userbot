@@ -320,8 +320,7 @@ async def amireallyalive(alive):
         f"❃ **Repo Userbot :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot) \n"
         f"❃ **Grup Userbot :** [Tekan Disini](https://t.me/sharinguserbot) \n"
         f"❃ **Owner :** [Risman](t.me/mrismanaziz) \n"
-        f"┗━━━━━━━━━━━━━━ \n"
-    )
+        f"┗━━━━━━━━━━━━━━ \n")
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO

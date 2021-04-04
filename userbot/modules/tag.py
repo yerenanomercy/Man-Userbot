@@ -13,10 +13,12 @@ from telethon.tl.types import UserStatusRecently as rec
 from telethon.utils import get_display_name
 
 from userbot.events import register
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 
 
-@register(outgoing=True, pattern=".tag(on|off|all|bots|rec|admins|owner)?(.*)", disable_errors=True)
+@register(outgoing=True,
+          pattern=".tag(on|off|all|bots|rec|admins|owner)?(.*)",
+          disable_errors=True)
 async def _(e):
     okk = e.text
     lll = e.pattern_match.group(2)
