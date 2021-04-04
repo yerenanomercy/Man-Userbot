@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        python-version: [3.8]
+        python-version: [3.9.2]
 
     steps:
     - uses: actions/checkout@v1
@@ -34,4 +34,3 @@ jobs:
     - uses: actions/checkout@v1
     - name: Check for install script errors
       uses: ludeeus/action-shellcheck@0.1.0
-© 2021 GitHub, Inc.
