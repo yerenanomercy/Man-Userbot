@@ -2,12 +2,21 @@
 # Recode by @mrismanaziz
 # @sharinguserbot
 
+import asyncio
 import os
-
 import cv2
 
 from userbot import CMD_HELP
 from userbot.events import register
+
+
+@register(outgoing=True, pattern="^.hl(?: |$)(.*)", disable_errors=True)
+async def _(ult):
+    try:
+        input = ult.text.split(" ", maxsplit=1)[1]
+    except IndexError:
+        return await eod(ult, "`Masukan Link Yang ingin di ubah jadi kosong`", time=5)
+    await eod(ult, "[ㅤㅤㅤㅤㅤㅤㅤ](" + input + ")", link_preview=False)
 
 
 @register(outgoing=True, pattern="^.circle(?: |$)(.*)", disable_errors=True)
