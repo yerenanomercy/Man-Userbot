@@ -3,9 +3,12 @@
 # @sharinguserbot
 
 import os
+
 import cv2
+
+from userbot import CMD_HELP
 from userbot.events import register
-from userbot import CMD_HELP, bot
+
 
 @register(outgoing=True, pattern="^.circle(?: |$)(.*)", disable_errors=True)
 async def _(e):
@@ -91,6 +94,7 @@ async def _(e):
         os.remove(c)
     else:
         return await eor(e, "`Reply to a gif or audio file only`")
+
 
 CMD_HELP.update(
     {
