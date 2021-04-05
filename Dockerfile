@@ -1,5 +1,5 @@
 # We're using Ubuntu 20.10
-FROM mrismanaziz/man-userbot:buster
+FROM biansepang/weebproject:buster
 #
 # Clone repo and prepare working directory
 #
