@@ -302,7 +302,9 @@ async def _(event):
             if "y" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -312,7 +314,9 @@ async def _(event):
             if "m" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -322,7 +326,9 @@ async def _(event):
             if "w" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -332,7 +338,9 @@ async def _(event):
             if "o" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -342,7 +350,9 @@ async def _(event):
             if "q" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -352,7 +362,9 @@ async def _(event):
             if "r" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -362,7 +374,9 @@ async def _(event):
             if "b" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                     break
                 else:
@@ -372,7 +386,9 @@ async def _(event):
             if "d" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
+                    await event.edit(
+                        "`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`"
+                    )
                     e.append(str(e))
                 else:
                     c = c + 1
@@ -422,9 +438,7 @@ async def _(event):
     thumb = None
     if os.path.exists(thumb_image_path):
         thumb = thumb_image_path
-    await event.edit(
-        "`Rename & Upload in processing ....`"
-    )
+    await event.edit("`Rename & Upload in processing ....`")
     input_str = event.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
