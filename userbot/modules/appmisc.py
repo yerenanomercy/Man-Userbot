@@ -180,7 +180,7 @@ async def _(event):
         for i in a:
             await event.reply(i.original.action.message)
     else:
-        await event.edit("Lord Anda memerlukan izin Admin untuk melakukan perintah ini")
+        await event.edit("Memerlukan izin Admin untuk melakukan perintah ini")
         await asyncio.sleep(3)
         await event.delete()
 
@@ -290,7 +290,7 @@ async def _(event):
     o = 0
     q = 0
     r = 0
-    await event.edit("Searching Participant Lists.")
+    await event.edit("`Searching Participant Lists.`")
     async for i in bot.iter_participants(event.chat_id):
         p = p + 1
         #
@@ -302,7 +302,7 @@ async def _(event):
             if "y" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -312,7 +312,7 @@ async def _(event):
             if "m" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -322,7 +322,7 @@ async def _(event):
             if "w" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -332,7 +332,7 @@ async def _(event):
             if "o" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -342,7 +342,7 @@ async def _(event):
             if "q" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -352,7 +352,7 @@ async def _(event):
             if "r" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -362,7 +362,7 @@ async def _(event):
             if "b" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                     break
                 else:
@@ -372,7 +372,7 @@ async def _(event):
             if "d" in input_str:
                 status, e = await ban_user(event.chat_id, i, rights)
                 if not status:
-                    await event.edit("I need admin priveleges to perform this action!")
+                    await event.edit("`Saya membutuhkan hak Admin untuk melakukan Tindakan ini!`")
                     e.append(str(e))
                 else:
                     c = c + 1
@@ -392,16 +392,16 @@ None: {}"""
         await event.edit(required_string.format(c, p, d, y, m, w, o, q, r, b, n))
         await asyncio.sleep(5)
     await event.edit(
-        """Total= {} users
-Number Of Deleted Accounts= {}
-Status: Empty= {}
-      : Last Month= {}
-      : Last Week= {}
-      : Offline= {}
-      : Online= {}
-      : Recently= {}
-Number Of Bots= {}
-Unidentified= {}""".format(
+        """Total= `{}` users
+Number Of Deleted Accounts= `{}`
+Status: Empty= `{}`
+      : Last Month= `{}`
+      : Last Week= `{}`
+      : Offline= `{}`
+      : Online= `{}`
+      : Recently= `{}`
+Number Of Bots= `{}`
+Unidentified= `{}`""".format(
             p, d, y, m, w, o, q, r, b, n
         )
     )
@@ -423,7 +423,7 @@ async def _(event):
     if os.path.exists(thumb_image_path):
         thumb = thumb_image_path
     await event.edit(
-        "`Rename & Upload in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big`"
+        "`Rename & Upload in processing ....`"
     )
     input_str = event.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -579,7 +579,7 @@ async def _(event):
     #  )
     await event.delete()
     await bot.send_message(
-        event.chat_id, "`Clone Berhasil Dilakukan ツ`", reply_to=reply_message
+        event.chat_id, "`Berhasil Mengclone User`", reply_to=reply_message
     )
 
 
@@ -767,7 +767,7 @@ async def weebify(event):
         get = await event.get_reply_message()
         args = get.text
     if not args:
-        await event.edit("`Lord, Teks Apa Yang Harus Saya Weebify Kan?`")
+        await event.edit("`Teks Apa Yang Harus Saya Weebify Kan?`")
         return
     string = " ".join(args).lower()
     for normiecharacter in string:
@@ -815,7 +815,7 @@ async def thicc(bolded):
         get = await bolded.get_reply_message()
         args = get.text
     if not args:
-        await bolded.edit("`Lord, Teks Apa Yang Harus Saya Bold Kan?`")
+        await bolded.edit("`Teks Apa Yang Harus Saya Bold Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -863,7 +863,7 @@ async def mediv(medievalx):
         get = await medievalx.get_reply_message()
         args = get.text
     if not args:
-        await medievalx.edit("`Lord, Teks Apa Yang Harus Saya Medibold Kan?`")
+        await medievalx.edit("`Teks Apa Yang Harus Saya Medibold Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -911,7 +911,7 @@ async def doublex(doublestrucktx):
         get = await doublestrucktx.get_reply_message()
         args = get.text
     if not args:
-        await doublestrucktx.edit("`Lord, Teks Apa Yang Harus Saya Double Struck Kan?`")
+        await doublestrucktx.edit("`Teks Apa Yang Harus Saya Double Struck Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -959,7 +959,7 @@ async def cursive2(cursivebolded):
         get = await cursivebolded.get_reply_message()
         args = get.text
     if not args:
-        await cursivebolded.edit("`Lord, Teks Apa Yang Harus Saya Cursive Bold Kan?`")
+        await cursivebolded.edit("`Teks Apa Yang Harus Saya Cursive Bold Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -1007,7 +1007,7 @@ async def medival22(medivallite):
         get = await medivallite.get_reply_message()
         args = get.text
     if not args:
-        await medivallite.edit("`Lord, Teks Apa Yang Harus Saya Medival Kan?`")
+        await medivallite.edit("`Teks Apa Yang Harus Saya Medival Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -1055,7 +1055,7 @@ async def xcursive(cursivelite):
         get = await cursivelite.get_reply_message()
         args = get.text
     if not args:
-        await cursivelite.edit("`Lord, Teks Apa Yang Harus Saya Cursive Kan?`")
+        await cursivelite.edit("`Teks Apa Yang Harus Saya Cursive Kan?`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -1079,7 +1079,74 @@ async def _(event):
     )
     await bot(functions.account.UpdateProfileRequest(about=bio))
     await bot(functions.account.UpdateProfileRequest(first_name=name))
-    await event.edit("`Berhasil Mengembalikan Akun Anda ツ`")
+    await event.edit("`Berhasil Mengembalikan Akun Anda dari clone`")
+
+
+CMD_HELP.update(
+    {
+        "clone": "**Plugin : **`clone`\
+        \n\n  •  **Syntax :** `.clone`<reply to user whom you want to clone>\
+        \n  •  **Function : **Untuk Mengclone Akun Orang\
+        \n\n  •  **Syntax : **`.rclone`\
+        \n  •  **Function : **Kembali ke profil Anda yang telah Anda tetapkan di heroku untuk ALIVE_NAME, DEFAULT_BIO\
+    "
+    }
+)
+
+
+CMD_HELP.update(
+    {
+        "watch": "**Plugin : **`watch`\
+        \n\n  •  **Syntax :** `.watch` <nama movie/tv>\
+        \n  •  **Function : **Untuk Mengetahui Detail Tentang Film.\
+    "
+    }
+)
+
+CMD_HELP.update(
+    {
+        "randompp": "**Plugin : **`randompp`\
+        \n\n  •  **Syntax :** `.randompp` <nama movie/tv>\
+        \n  •  **Function : **Otomatis Mengganti Foto Profile Mu, Untuk Stop ini Ketik .restart\
+    "
+    }
+)
+
+CMD_HELP.update(
+    {
+        "glitch": "**Plugin : **`glitch`\
+        \n\n  •  **Syntax :** `.glitch` <Reply Ke Media>\
+        \n  •  **Function : **Memberikan Glitch (Gif , Stickers , Gambar, Video) Ke Gif Dan Level Glitch 1 - 8.\nJika Tidak Memberikan Level Otomatis Default Ke Level 2\
+    "
+    }
+)
+
+CMD_HELP.update(
+    {
+        "grab": "**Plugin : **`grab`\
+        \n\n  •  **Syntax :** `.grab` <nama movie/tv>\
+        \n  •  **Function : **Balas Ke Pesan Pengguna Telegram dan Ketik `.grab` Atau `.grab <count>` Untuk Mengambil Foto Profil.\
+    "
+    }
+)
+
+CMD_HELP.update(
+    {
+        "remove": "**Plugin : **`remove`\
+        \n\n  •  **Syntax :** `.remove`\
+        \n  •  **Function : **Untuk mengkik user dari grup secara spesifik \nGunakan Perintah ini di grup Ketik .remove d atau y atau m atau w atau o atau q atau r.\n(d=AkunTerhapus y=userstatsempty m=userstatsmonth w=userstatsweek o=userstatsoffline q=userstatsonline r=userstatsrecently).\
+    "
+    }
+)
+
+CMD_HELP.update(
+    {
+        "rnupload": "**Plugin : **`rnupload`\
+        \n\n  •  **Syntax :** `.rnupload`\
+        \n  •  **Function : **Untuk Rename dan Upload, Balas Ke Media Dan Ketik .rnupload xyz.jpg\
+    "
+    }
+)
 
 
 CMD_HELP.update(
@@ -1090,29 +1157,14 @@ CMD_HELP.update(
 \nUsage: urungkan pesan yang dihapus tetapi Anda harus menjadi admin.\
 \n\n`.calc`\
 \nUsage: `.calc <term1><operator><term2>\nUntuk eg .calc 02*02 Atau 99*99 (Angka Nol Penting) (Minimal Dua Suku Dan Dua Digit).\
-\n\n`.remove`\
-\nUsage: gunakan di grup .remove d atau y atau m atau w atau o atau q atau r.\n(d=AkunTerhapus y=userstatsempty m=userstatsmonth w=userstatsweek o=userstatsoffline q=userstatsonline r=userstatsrecently).\
 \n\n`.xcd`\
-\nUsage: Ketik xcd <query>.ps:Aku Sangat Bosan:v\
-\n\n`.grab` <count>\
-\nUsage: Balas Ke Pesan Pengguna Ketik `.grab` Atau `.grab <count>` Untuk Mengambil Foto Profil.\
-\n\n`.rnupload` filename.extenstion\
-\nUsage: Balas Ke Sticker Dan Ketik .rnupload xyz.jpg\
-\n\n`.clone` @username Dan '.rclone' Untuk Mengembalikan\
-\nUsage: Clone Akun Orang Tapi Username Tidak Di Clone\
+\nUsage: Ketik xcd <query>.ps:Aku Sangat Bosan\
 \n\n`.res`\
 \nUsage: Ketik Username Akun,Channel,Group Atau Bot Bersama .res Dan Check Batasan\
-\n\n`.watch` <movie/tv>\
-\nUsage: Mengetahui Detail Tentang Film.\
 \n\n`.weeb` <text>\
 \nUsage:Teks Weebify\
 \n\nKetik (`.bold <Teks>`,`.cur <Teks>`,`.curbold <Teks>`,`.medi <Teks>`,`.medibold <Teks>`,`.doublestruck <Teks>`)\
 \nUsage: Buat Teks <Bold,Cursive,Cursivebold,Medival,Medivalbold,Gayishbold>\
-\n\n`.randompp`\
-\nUsage: Otomatis Mengganti Foto Profile Mu Untuk Stop ini Ketik .restart.\
-\n\n`.glitch` Balas Ke Media\
-\nUsage: Memberikan Glitch (Gif , Stickers , Gambar, Video) Ke Gif Dan Level Glitch 1 - 8.\
-Jika Tidak Memberikan Level Otomatis Default Ke Level 2\
 \n\n`.glitchs` Balas Ke Media\
 \nUsage: Memberikan Glitch (Gif , Stickers , Gambar, Video) Ke Sticker Dan Level Glitch 1 to 8.\
 Jika Tidak Memberikan Level Otomatis Default Ke Level 2."
