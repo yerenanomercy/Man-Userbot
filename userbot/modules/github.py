@@ -6,8 +6,9 @@
 """ Userbot module for filter commands """
 
 import aiohttp
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(pattern=r".git (.*)", outgoing=True)
@@ -17,8 +18,9 @@ async def github(event):
     async with aiohttp.ClientSession() as session:
         async with session.get(URL) as request:
             if request.status == 404:
-                return await event.reply("`" + event.pattern_match.group(1) +
-                                         " not found`")
+                return await event.reply(
+                    "`" + event.pattern_match.group(1) + " not found`"
+                )
 
             result = await request.json()
 
@@ -51,8 +53,6 @@ async def github(event):
                 await event.edit(REPLY)
 
 
-CMD_HELP.update({
-    "github":
-    ">`.git <username>`"
-    "\nUsage: Like .whois but for GitHub usernames."
-})
+CMD_HELP.update(
+    {"github": ">`.git <username>`" "\nUsage: Like .whois but for GitHub usernames."}
+)

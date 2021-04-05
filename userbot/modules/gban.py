@@ -1,15 +1,12 @@
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
-
-from telethon.tl.types import (
-    MessageEntityMentionName,
-)
+from telethon.tl.types import MessageEntityMentionName
 
 from userbot import BOTLOG, BOTLOG_CHATID
 from userbot.events import register
 
 
 async def get_full_user(event):
-    args = event.pattern_match.group(1).split(':', 1)
+    args = event.pattern_match.group(1).split(":", 1)
     extra = None
     if event.reply_to_msg_id and not len(args) == 2:
         previous_message = await event.get_reply_message()
@@ -26,8 +23,7 @@ async def get_full_user(event):
             return
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
-            if isinstance(probable_user_mention_entity,
-                          MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 user_obj = await event.client.get_entity(user_id)
                 return user_obj
@@ -117,8 +113,7 @@ async def gspider(userbot):
     if BOTLOG:
         await event.client.send_message(
             BOTLOG_CHATID,
-            "#GBANNED\n"
-            f"USER: [{user.first_name}](tg://user?id={user.id})"
+            "#GBANNED\n" f"USER: [{user.first_name}](tg://user?id={user.id})",
         )
 
 
@@ -153,7 +148,9 @@ async def gspider(userbot):
         return await friday.edit("`Terjadi Kesalahan!!`")
     if user:
         if user.id == 844432220:
-            return await friday.edit("`You Cant gban him... as a result you can not ungban him... He is My Creator!`")
+            return await friday.edit(
+                "`You Cant gban him... as a result you can not ungban him... He is My Creator!`"
+            )
         try:
             from userbot.modules.sql_helper.gmute_sql import ungmute
         except BaseException:

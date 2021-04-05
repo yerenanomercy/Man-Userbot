@@ -7,51 +7,66 @@
 #
 """ Userbot module containing various scrapers. """
 
-import os
-import io
-import time
 import asyncio
-import shutil
+import io
 import json
-import requests
-from os import popen
-from bs4 import BeautifulSoup
+import os
 import re
-from re import match
+import shutil
+import time
+from asyncio import sleep
+from os import popen
 from random import choice
-from humanize import naturalsize
-import qrcode
-import barcode
-import asyncurban
-from barcode.writer import ImageWriter
-import emoji
-from googletrans import Translator
+from re import findall, match
 from time import sleep
-from re import findall
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from urllib.parse import quote_plus
-from wikipedia import summary
-from wikipedia.exceptions import DisambiguationError, PageError
-from requests import get, post, exceptions
-from search_engine_parser import YahooSearch as GoogleSearch
+
+import asyncurban
+import barcode
+import emoji
+import qrcode
+import requests
+from barcode.writer import ImageWriter
+from bs4 import BeautifulSoup
+from emoji import get_emoji_regexp
 from googletrans import LANGUAGES, Translator
 from gtts import gTTS
 from gtts.lang import tts_langs
-from emoji import get_emoji_regexp
-from telethon.tl.types import MessageMediaPhoto
-from youtube_search import YoutubeSearch
+from humanize import naturalsize
+from requests import exceptions, get, post
+from search_engine_parser import YahooSearch as GoogleSearch
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from telethon.tl.types import DocumentAttributeAudio, MessageMediaPhoto
+from wikipedia import summary
+from wikipedia.exceptions import DisambiguationError, PageError
 from youtube_dl import YoutubeDL
-from youtube_dl.utils import (DownloadError, ContentTooShortError,
-                              ExtractorError, GeoRestrictedError,
-                              MaxDownloadsReached, PostProcessingError,
-                              UnavailableVideoError, XAttrMetadataError)
-from asyncio import sleep
-from userbot import BOTLOG, BOTLOG_CHATID, CHROME_DRIVER, CMD_HELP, GOOGLE_CHROME_BIN, LOGS, OCR_SPACE_API_KEY, REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY, bot
-from userbot.events import register
-from telethon.tl.types import DocumentAttributeAudio
-from userbot.utils import chrome, googleimagesdownload, options, progress
+from youtube_dl.utils import (
+    ContentTooShortError,
+    DownloadError,
+    ExtractorError,
+    GeoRestrictedError,
+    MaxDownloadsReached,
+    PostProcessingError,
+    UnavailableVideoError,
+    XAttrMetadataError,
+)
+from youtube_search import YoutubeSearch
 
+from userbot import (
+    BOTLOG,
+    BOTLOG_CHATID,
+    CHROME_DRIVER,
+    CMD_HELP,
+    GOOGLE_CHROME_BIN,
+    LOGS,
+    OCR_SPACE_API_KEY,
+    REM_BG_API_KEY,
+    TEMP_DOWNLOAD_DIRECTORY,
+    bot,
+)
+from userbot.events import register
+from userbot.utils import chrome, googleimagesdownload, options, progress
 
 CARBONLANG = "auto"
 TTS_LANG = "id"
@@ -59,11 +74,10 @@ TRT_LANG = "id"
 TEMP_DOWNLOAD_DIRECTORY = "/root/userbot/.bin"
 
 
-async def ocr_space_file(filename,
-                         overlay=False,
-                         api_key=OCR_SPACE_API_KEY,
-                         language='eng'):
-    """ OCR.space API request with local file.
+async def ocr_space_file(
+    filename, overlay=False, api_key=OCR_SPACE_API_KEY, language="eng"
+):
+    """OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
     :param overlay: Is OCR.space overlay required in your response.
@@ -77,17 +91,18 @@ async def ocr_space_file(filename,
     """
 
     payload = {
-        'isOverlayRequired': overlay,
-        'apikey': api_key,
-        'language': language,
+        "isOverlayRequired": overlay,
+        "apikey": api_key,
+        "language": language,
     }
-    with open(filename, 'rb') as f:
+    with open(filename, "rb") as f:
         r = requests.post(
-            'https://api.ocr.space/parse/image',
+            "https://api.ocr.space/parse/image",
             files={filename: f},
             data=payload,
         )
     return r.json()
+
 
 DOGBIN_URL = "https://del.dog/"
 NEKOBIN_URL = "https://nekobin.com/"
@@ -104,7 +119,7 @@ async def setlang(prog):
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
-    CARBON = 'https://carbon.now.sh/?l={lang}&code={code}'
+    CARBON = "https://carbon.now.sh/?l={lang}&code={code}"
     global CARBONLANG
     textx = await e.get_reply_message()
     pcode = e.text
@@ -124,32 +139,30 @@ async def carbon_api(e):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-gpu")
-    prefs = {'download.default_directory': '/root/userbot/.bin'}
-    chrome_options.add_experimental_option('prefs', prefs)
-    driver = webdriver.Chrome(executable_path=CHROME_DRIVER,
-                              options=chrome_options)
+    prefs = {"download.default_directory": "/root/userbot/.bin"}
+    chrome_options.add_experimental_option("prefs", prefs)
+    driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=chrome_options)
     driver.get(url)
     await e.edit("`Processing..\n50%`")
-    download_path = '/root/userbot/.bin'
+    download_path = "/root/userbot/.bin"
     driver.command_executor._commands["send_command"] = (
-        "POST", '/session/$sessionId/chromium/send_command')
+        "POST",
+        "/session/$sessionId/chromium/send_command",
+    )
     params = {
-        'cmd': 'Page.setDownloadBehavior',
-        'params': {
-            'behavior': 'allow',
-            'downloadPath': download_path
-        }
+        "cmd": "Page.setDownloadBehavior",
+        "params": {"behavior": "allow", "downloadPath": download_path},
     }
     driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-   # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-   # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
+    # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
+    # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
     await e.edit("`Processing..\n75%`")
     # Waiting for downloading
     while not os.path.isfile("/root/userbot/.bin/carbon.png"):
         await sleep(0.5)
     await e.edit("`Processing..\n100%`")
-    file = '/root/userbot/.bin/carbon.png'
+    file = "/root/userbot/.bin/carbon.png"
     await e.edit("`Uploading..`")
     await e.client.send_file(
         e.chat_id,
@@ -160,7 +173,7 @@ async def carbon_api(e):
         reply_to=e.message.reply_to_msg_id,
     )
 
-    os.remove('/root/userbot/.bin/carbon.png')
+    os.remove("/root/userbot/.bin/carbon.png")
     driver.quit()
     # Removing carbon.png after uploading
     await e.delete()  # Deleting msg
@@ -185,14 +198,15 @@ async def img_sampler(event):
         "keywords": query,
         "limit": lim,
         "format": "jpg",
-        "no_directory": "no_directory"
+        "no_directory": "no_directory",
     }
 
     # passing the arguments to the function
     paths = response.download(arguments)
     lst = paths[0][query]
     await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst)
+        await event.client.get_input_entity(event.chat_id), lst
+    )
     shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
     await event.delete()
 
@@ -207,13 +221,15 @@ async def moni(event):
             currency_from = input_sgra[1].upper()
             currency_to = input_sgra[2].upper()
             request_url = "https://api.exchangeratesapi.io/latest?base={}".format(
-                currency_from)
+                currency_from
+            )
             current_response = get(request_url).json()
             if currency_to in current_response["rates"]:
                 current_rate = float(current_response["rates"][currency_to])
                 rebmun = round(number * current_rate, 2)
-                await event.edit("{} {} = {} {}".format(
-                    number, currency_from, rebmun, currency_to))
+                await event.edit(
+                    "{} {} = {} {}".format(number, currency_from, rebmun, currency_to)
+                )
             else:
                 await event.edit(
                     "`This seems to be some alien currency, which I can't convert right now.`"
@@ -287,7 +303,8 @@ async def wiki(wiki_q):
     await wiki_q.edit("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
     if BOTLOG:
         await wiki_q.client.send_message(
-            BOTLOG_CHATID, f"Wiki query `{match}` was executed successfully")
+            BOTLOG_CHATID, f"Wiki query `{match}` was executed successfully"
+        )
 
 
 @register(outgoing=True, pattern="^.ud (.*)")
@@ -299,7 +316,11 @@ async def _(event):
     urban = asyncurban.UrbanDictionary()
     try:
         mean = await urban.get_word(word)
-        await event.edit("Text: **{}**\n\nMeaning: **{}**\n\nExample: __{}__".format(mean.word, mean.definition, mean.example))
+        await event.edit(
+            "Text: **{}**\n\nMeaning: **{}**\n\nExample: __{}__".format(
+                mean.word, mean.definition, mean.example
+            )
+        )
     except asyncurban.WordNotFoundError:
         await event.edit("No result found for **" + word + "**")
 
@@ -315,19 +336,20 @@ async def text_to_speech(query):
         message = textx.text
     else:
         return await query.edit(
-            "`Give a text or reply to a message for Text-to-Speech!`")
+            "`Give a text or reply to a message for Text-to-Speech!`"
+        )
 
     try:
         gTTS(message, lang=TTS_LANG)
     except AssertionError:
         return await query.edit(
-            'The text is empty.\n'
-            'Nothing left to speak after pre-precessing, tokenizing and cleaning.'
+            "The text is empty.\n"
+            "Nothing left to speak after pre-precessing, tokenizing and cleaning."
         )
     except ValueError:
-        return await query.edit('Language is not supported.')
+        return await query.edit("Language is not supported.")
     except RuntimeError:
-        return await query.edit('Error loading the languages dictionary.')
+        return await query.edit("Error loading the languages dictionary.")
     tts = gTTS(message, lang=TTS_LANG)
     tts.save("k.mp3")
     with open("k.mp3", "rb") as audio:
@@ -341,7 +363,8 @@ async def text_to_speech(query):
         os.remove("k.mp3")
         if BOTLOG:
             await query.client.send_message(
-                BOTLOG_CHATID, "Text to Speech executed successfully !")
+                BOTLOG_CHATID, "Text to Speech executed successfully !"
+            )
         await query.delete()
 
 
@@ -372,9 +395,7 @@ async def _(event):
         # either here, or before translation
         output_str = """**TRANSLATED** from {} to {}
 {}""".format(
-            translated.src,
-            lan,
-            after_tr_text
+            translated.src, lan, after_tr_text
         )
         await event.edit(output_str)
     except Exception as exc:
@@ -412,8 +433,8 @@ async def lang(value):
     await value.edit(f"`Language for {scraper} changed to {LANG.title()}.`")
     if BOTLOG:
         await value.client.send_message(
-            BOTLOG_CHATID,
-            f"`Language for {scraper} changed to {LANG.title()}.`")
+            BOTLOG_CHATID, f"`Language for {scraper} changed to {LANG.title()}.`"
+        )
 
 
 @register(outgoing=True, pattern=r"^\.yt (\d*) *(.*)")
@@ -434,12 +455,11 @@ async def yt_search(video_q):
     await video_q.edit("`Processing...`")
 
     try:
-        results = json.loads(
-            YoutubeSearch(
-                query,
-                max_results=counter).to_json())
+        results = json.loads(YoutubeSearch(query, max_results=counter).to_json())
     except KeyError:
-        return await video_q.edit("`Youtube Search gone retard.\nCan't search this query!`")
+        return await video_q.edit(
+            "`Youtube Search gone retard.\nCan't search this query!`"
+        )
 
     output = f"**Search Query:**\n`{query}`\n\n**Results:**\n\n"
 
@@ -467,59 +487,41 @@ async def download_video(v_url):
 
     if type == "audio":
         opts = {
-            'format':
-            'bestaudio',
-            'addmetadata':
-            True,
-            'key':
-            'FFmpegMetadata',
-            'writethumbnail':
-            True,
-            'prefer_ffmpeg':
-            True,
-            'geo_bypass':
-            True,
-            'nocheckcertificate':
-            True,
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '320',
-            }],
-            'outtmpl':
-            '%(id)s.mp3',
-            'quiet':
-            True,
-            'logtostderr':
-            False
+            "format": "bestaudio",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "writethumbnail": True,
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "320",
+                }
+            ],
+            "outtmpl": "%(id)s.mp3",
+            "quiet": True,
+            "logtostderr": False,
         }
         video = False
         song = True
 
     elif type == "video":
         opts = {
-            'format':
-            'best',
-            'addmetadata':
-            True,
-            'key':
-            'FFmpegMetadata',
-            'prefer_ffmpeg':
-            True,
-            'geo_bypass':
-            True,
-            'nocheckcertificate':
-            True,
-            'postprocessors': [{
-                'key': 'FFmpegVideoConvertor',
-                'preferedformat': 'mp4'
-            }],
-            'outtmpl':
-            '%(id)s.mp4',
-            'logtostderr':
-            False,
-            'quiet':
-            True
+            "format": "best",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "nocheckcertificate": True,
+            "postprocessors": [
+                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
+            ],
+            "outtmpl": "%(id)s.mp4",
+            "logtostderr": False,
+            "quiet": True,
         }
         song = False
         video = True
@@ -551,42 +553,42 @@ async def download_video(v_url):
         return await v_url.edit(f"{str(type(e)): {str(e)}}")
     c_time = time.time()
     if song:
-        await v_url.edit(
-            f"`Preparing to upload song:`\n**{rip_data['title']}**")
+        await v_url.edit(f"`Preparing to upload song:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp3",
             supports_streaming=True,
             attributes=[
-                DocumentAttributeAudio(duration=int(rip_data['duration']),
-                                       title=str(rip_data['title']),
-                                       performer=str(rip_data['uploader']))
+                DocumentAttributeAudio(
+                    duration=int(rip_data["duration"]),
+                    title=str(rip_data["title"]),
+                    performer=str(rip_data["uploader"]),
+                )
             ],
-            progress_callback=lambda d, t: asyncio.get_event_loop(
-            ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
-                         f"{rip_data['title']}.mp3")))
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp3")
+            ),
+        )
         os.remove(f"{rip_data['id']}.mp3")
         await v_url.delete()
     elif video:
-        await v_url.edit(
-            f"`Preparing to upload video:`\n**{rip_data['title']}**")
+        await v_url.edit(f"`Preparing to upload video:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp4",
             supports_streaming=True,
-            caption=rip_data['title'],
-            progress_callback=lambda d, t: asyncio.get_event_loop(
-            ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
-                         f"{rip_data['title']}.mp4")))
+            caption=rip_data["title"],
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(d, t, v_url, c_time, "Uploading..", f"{rip_data['title']}.mp4")
+            ),
+        )
         os.remove(f"{rip_data['id']}.mp4")
         await v_url.delete()
 
 
 def deEmojify(inputString):
     """ Remove emojis and other non-safe characters from string """
-    return get_emoji_regexp().sub(u'', inputString)
+    return get_emoji_regexp().sub("", inputString)
 
 
 @register(outgoing=True, pattern="^.rbg(?: |$)(.*)")
@@ -605,22 +607,23 @@ async def kbg(remob):
         await remob.edit("`Processing..`")
         try:
             if isinstance(
-                    reply_message.media, MessageMediaPhoto
-            ) or "image" in reply_message.media.document.mime_type.split('/'):
+                reply_message.media, MessageMediaPhoto
+            ) or "image" in reply_message.media.document.mime_type.split("/"):
                 downloaded_file_name = await remob.client.download_media(
-                    reply_message, TEMP_DOWNLOAD_DIRECTORY)
+                    reply_message, TEMP_DOWNLOAD_DIRECTORY
+                )
                 await remob.edit("`Removing background from this image..`")
                 output_file_name = await ReTrieveFile(downloaded_file_name)
                 os.remove(downloaded_file_name)
             else:
-                await remob.edit("`How do I remove the background from this ?`"
-                                 )
+                await remob.edit("`How do I remove the background from this ?`")
         except Exception as e:
             await remob.edit(str(e))
             return
     elif input_str:
         await remob.edit(
-            f"`Removing background from online image hosted at`\n{input_str}")
+            f"`Removing background from online image hosted at`\n{input_str}"
+        )
         output_file_name = await ReTrieveURL(input_str)
     else:
         await remob.edit("`I need something to remove the background from.`")
@@ -634,11 +637,15 @@ async def kbg(remob):
                 remove_bg_image,
                 caption="Background removed using remove.bg",
                 force_document=True,
-                reply_to=message_id)
+                reply_to=message_id,
+            )
             await remob.delete()
     else:
-        await remob.edit("**Error (Invalid API key, I guess ?)**\n`{}`".format(
-            output_file_name.content.decode("UTF-8")))
+        await remob.edit(
+            "**Error (Invalid API key, I guess ?)**\n`{}`".format(
+                output_file_name.content.decode("UTF-8")
+            )
+        )
 
 
 # this method will call the API, and return in the appropriate format
@@ -650,11 +657,13 @@ async def ReTrieveFile(input_file_name):
     files = {
         "image_file": (input_file_name, open(input_file_name, "rb")),
     }
-    r = requests.post("https://api.remove.bg/v1.0/removebg",
-                      headers=headers,
-                      files=files,
-                      allow_redirects=True,
-                      stream=True)
+    r = requests.post(
+        "https://api.remove.bg/v1.0/removebg",
+        headers=headers,
+        files=files,
+        allow_redirects=True,
+        stream=True,
+    )
     return r
 
 
@@ -663,11 +672,13 @@ async def ReTrieveURL(input_url):
         "X-API-Key": REM_BG_API_KEY,
     }
     data = {"image_url": input_url}
-    r = requests.post("https://api.remove.bg/v1.0/removebg",
-                      headers=headers,
-                      data=data,
-                      allow_redirects=True,
-                      stream=True)
+    r = requests.post(
+        "https://api.remove.bg/v1.0/removebg",
+        headers=headers,
+        data=data,
+        allow_redirects=True,
+        stream=True,
+    )
     return r
 
 
@@ -682,16 +693,15 @@ async def ocr(event):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     lang_code = event.pattern_match.group(1)
     downloaded_file_name = await bot.download_media(
-        await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY)
-    test_file = await ocr_space_file(filename=downloaded_file_name,
-                                     language=lang_code)
+        await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY
+    )
+    test_file = await ocr_space_file(filename=downloaded_file_name, language=lang_code)
     try:
         ParsedText = test_file["ParsedResults"][0]["ParsedText"]
     except BaseException:
         await event.edit("`Couldn't read it.`\n`I guess I need new glasses.`")
     else:
-        await event.edit(f"`Here's what I could read from it:`\n\n{ParsedText}"
-                         )
+        await event.edit(f"`Here's what I could read from it:`\n\n{ParsedText}")
     os.remove(downloaded_file_name)
 
 
@@ -699,11 +709,16 @@ async def ocr(event):
 async def parseqr(qr_e):
     """ For .decode command, get QR Code/BarCode content from the replied photo. """
     downloaded_file_name = await qr_e.client.download_media(
-        await qr_e.get_reply_message())
+        await qr_e.get_reply_message()
+    )
     # parse the Official ZXing webpage to decode the QRCode
     command_to_exec = [
-        "curl", "-X", "POST", "-F", "f=@" + downloaded_file_name + "",
-        "https://zxing.org/w/decode"
+        "curl",
+        "-X",
+        "POST",
+        "-F",
+        "f=@" + downloaded_file_name + "",
+        "https://zxing.org/w/decode",
     ]
     process = await asyncio.create_subprocess_exec(
         *command_to_exec,
@@ -738,8 +753,7 @@ async def bq(event):
         previous_message = await event.get_reply_message()
         reply_msg_id = previous_message.id
         if previous_message.media:
-            downloaded_file_name = await event.client.download_media(
-                previous_message)
+            downloaded_file_name = await event.client.download_media(previous_message)
             m_list = None
             with open(downloaded_file_name, "rb") as fd:
                 m_list = fd.readlines()
@@ -754,13 +768,9 @@ async def bq(event):
 
     bar_code_type = "code128"
     try:
-        bar_code_mode_f = barcode.get(bar_code_type,
-                                      message,
-                                      writer=ImageWriter())
+        bar_code_mode_f = barcode.get(bar_code_type, message, writer=ImageWriter())
         filename = bar_code_mode_f.save(bar_code_type)
-        await event.client.send_file(event.chat_id,
-                                     filename,
-                                     reply_to=reply_msg_id)
+        await event.client.send_file(event.chat_id, filename, reply_to=reply_msg_id)
         os.remove(filename)
     except Exception as e:
         return await event.edit(str(e))
@@ -779,8 +789,7 @@ async def make_qr(makeqr):
         previous_message = await makeqr.get_reply_message()
         reply_msg_id = previous_message.id
         if previous_message.media:
-            downloaded_file_name = await makeqr.client.download_media(
-                previous_message)
+            downloaded_file_name = await makeqr.client.download_media(previous_message)
             m_list = None
             with open(downloaded_file_name, "rb") as file:
                 m_list = file.readlines()
@@ -801,9 +810,9 @@ async def make_qr(makeqr):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("img_file.webp", "PNG")
-    await makeqr.client.send_file(makeqr.chat_id,
-                                  "img_file.webp",
-                                  reply_to=reply_msg_id)
+    await makeqr.client.send_file(
+        makeqr.chat_id, "img_file.webp", reply_to=reply_msg_id
+    )
     os.remove("img_file.webp")
     await makeqr.delete()
 
@@ -821,138 +830,138 @@ async def direct_link_generator(request):
     else:
         await request.edit("`Usage: .direct <url>`")
         return
-    reply = ''
-    links = re.findall(r'\bhttps?://.*\.\S+', message)
+    reply = ""
+    links = re.findall(r"\bhttps?://.*\.\S+", message)
     if not links:
         reply = "`No links found!`"
         await request.edit(reply)
     for link in links:
-        if 'drive.google.com' in link:
+        if "drive.google.com" in link:
             reply += gdrive(link)
-        elif 'zippyshare.com' in link:
+        elif "zippyshare.com" in link:
             reply += zippy_share(link)
-        elif 'yadi.sk' in link:
+        elif "yadi.sk" in link:
             reply += yandex_disk(link)
-        elif 'cloud.mail.ru' in link:
+        elif "cloud.mail.ru" in link:
             reply += cm_ru(link)
-        elif 'mediafire.com' in link:
+        elif "mediafire.com" in link:
             reply += mediafire(link)
-        elif 'sourceforge.net' in link:
+        elif "sourceforge.net" in link:
             reply += sourceforge(link)
-        elif 'osdn.net' in link:
+        elif "osdn.net" in link:
             reply += osdn(link)
-        elif 'github.com' in link:
+        elif "github.com" in link:
             reply += github(link)
-        elif 'androidfilehost.com' in link:
+        elif "androidfilehost.com" in link:
             reply += androidfilehost(link)
         else:
-            reply += re.findall(r"\bhttps?://(.*?[^/]+)",
-                                link)[0] + 'is not supported'
+            reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
     await request.edit(reply)
 
 
 def gdrive(url: str) -> str:
     """ GDrive direct links generator """
-    drive = 'https://drive.google.com'
+    drive = "https://drive.google.com"
     try:
-        link = re.findall(r'\bhttps?://drive\.google\.com\S+', url)[0]
+        link = re.findall(r"\bhttps?://drive\.google\.com\S+", url)[0]
     except IndexError:
         reply = "`No Google drive links found`\n"
         return reply
-    file_id = ''
-    reply = ''
+    file_id = ""
+    reply = ""
     if link.find("view") != -1:
-        file_id = link.split('/')[-2]
+        file_id = link.split("/")[-2]
     elif link.find("open?id=") != -1:
         file_id = link.split("open?id=")[1].strip()
     elif link.find("uc?id=") != -1:
         file_id = link.split("uc?id=")[1].strip()
-    url = f'{drive}/uc?export=download&id={file_id}'
+    url = f"{drive}/uc?export=download&id={file_id}"
     download = requests.get(url, stream=True, allow_redirects=False)
     cookies = download.cookies
     try:
         # In case of small file size, Google downloads directly
         dl_url = download.headers["location"]
-        if 'accounts.google.com' in dl_url:  # non-public file
-            reply += '`Link is not public!`\n'
+        if "accounts.google.com" in dl_url:  # non-public file
+            reply += "`Link is not public!`\n"
             return reply
-        name = 'Direct Download Link'
+        name = "Direct Download Link"
     except KeyError:
         # In case of download warning page
-        page = BeautifulSoup(download.content, 'lxml')
-        export = drive + page.find('a', {'id': 'uc-download-link'}).get('href')
-        name = page.find('span', {'class': 'uc-name-size'}).text
-        response = requests.get(export,
-                                stream=True,
-                                allow_redirects=False,
-                                cookies=cookies)
-        dl_url = response.headers['location']
-        if 'accounts.google.com' in dl_url:
-            reply += 'Link is not public!'
+        page = BeautifulSoup(download.content, "lxml")
+        export = drive + page.find("a", {"id": "uc-download-link"}).get("href")
+        name = page.find("span", {"class": "uc-name-size"}).text
+        response = requests.get(
+            export, stream=True, allow_redirects=False, cookies=cookies
+        )
+        dl_url = response.headers["location"]
+        if "accounts.google.com" in dl_url:
+            reply += "Link is not public!"
             return reply
-    reply += f'[{name}]({dl_url})\n'
+    reply += f"[{name}]({dl_url})\n"
     return reply
 
 
 def zippy_share(url: str) -> str:
-    """ ZippyShare direct links generator
+    """ZippyShare direct links generator
     Based on https://github.com/LameLemon/ziggy"""
-    reply = ''
-    dl_url = ''
+    reply = ""
+    dl_url = ""
     try:
-        link = re.findall(r'\bhttps?://.*zippyshare\.com\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*zippyshare\.com\S+", url)[0]
     except IndexError:
         reply = "`No ZippyShare links found`\n"
         return reply
     session = requests.Session()
-    base_url = re.search('http.+.com', link).group()
+    base_url = re.search("http.+.com", link).group()
     response = session.get(link)
     page_soup = BeautifulSoup(response.content, "lxml")
     scripts = page_soup.find_all("script", {"type": "text/javascript"})
     for script in scripts:
         if "getElementById('dlbutton')" in script.text:
-            url_raw = re.search(r'= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);',
-                                script.text).group('url')
-            math = re.search(r'= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);',
-                             script.text).group('math')
+            url_raw = re.search(
+                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
+            ).group("url")
+            math = re.search(
+                r"= (?P<url>\".+\" \+ (?P<math>\(.+\)) .+);", script.text
+            ).group("math")
             dl_url = url_raw.replace(math, '"' + str(eval(math)) + '"')
             break
     dl_url = base_url + eval(dl_url)
-    name = urllib.parse.unquote(dl_url.split('/')[-1])
-    reply += f'[{name}]({dl_url})\n'
+    name = urllib.parse.unquote(dl_url.split("/")[-1])
+    reply += f"[{name}]({dl_url})\n"
     return reply
 
 
 def yandex_disk(url: str) -> str:
-    """ Yandex.Disk direct links generator
+    """Yandex.Disk direct links generator
     Based on https://github.com/wldhx/yadisk-direct"""
-    reply = ''
+    reply = ""
     try:
-        link = re.findall(r'\bhttps?://.*yadi\.sk\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*yadi\.sk\S+", url)[0]
     except IndexError:
         reply = "`No Yandex.Disk links found`\n"
         return reply
-    api = 'https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key={}'
+    api = "https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key={}"
     try:
-        dl_url = requests.get(api.format(link)).json()['href']
-        name = dl_url.split('filename=')[1].split('&disposition')[0]
-        reply += f'[{name}]({dl_url})\n'
+        dl_url = requests.get(api.format(link)).json()["href"]
+        name = dl_url.split("filename=")[1].split("&disposition")[0]
+        reply += f"[{name}]({dl_url})\n"
     except KeyError:
-        reply += '`Error: File not found / Download limit reached`\n'
+        reply += "`Error: File not found / Download limit reached`\n"
         return reply
     return reply
 
 
 def cm_ru(url: str) -> str:
-    """ cloud.mail.ru direct links generator
+    """cloud.mail.ru direct links generator
     Using https://github.com/JrMasterModelBuilder/cmrudl.py"""
-    reply = ''
+    reply = ""
     try:
-        link = re.findall(r'\bhttps?://.*cloud\.mail\.ru\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*cloud\.mail\.ru\S+", url)[0]
     except IndexError:
         reply = "`No cloud.mail.ru links found`\n"
         return reply
-    command = f'bin/cmrudl -s {link}'
+    command = f"bin/cmrudl -s {link}"
     result = popen(command).read()
     result = result.splitlines()[-1]
     try:
@@ -960,140 +969,140 @@ def cm_ru(url: str) -> str:
     except json.decoder.JSONDecodeError:
         reply += "`Error: Can't extract the link`\n"
         return reply
-    dl_url = data['download']
-    name = data['file_name']
-    size = naturalsize(int(data['file_size']))
-    reply += f'[{name} ({size})]({dl_url})\n'
+    dl_url = data["download"]
+    name = data["file_name"]
+    size = naturalsize(int(data["file_size"]))
+    reply += f"[{name} ({size})]({dl_url})\n"
     return reply
 
 
 def mediafire(url: str) -> str:
     """ MediaFire direct links generator """
     try:
-        link = re.findall(r'\bhttps?://.*mediafire\.com\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*mediafire\.com\S+", url)[0]
     except IndexError:
         reply = "`No MediaFire links found`\n"
         return reply
-    reply = ''
-    page = BeautifulSoup(requests.get(link).content, 'lxml')
-    info = page.find('a', {'aria-label': 'Download file'})
-    dl_url = info.get('href')
-    size = re.findall(r'\(.*\)', info.text)[0]
-    name = page.find('div', {'class': 'filename'}).text
-    reply += f'[{name} {size}]({dl_url})\n'
+    reply = ""
+    page = BeautifulSoup(requests.get(link).content, "lxml")
+    info = page.find("a", {"aria-label": "Download file"})
+    dl_url = info.get("href")
+    size = re.findall(r"\(.*\)", info.text)[0]
+    name = page.find("div", {"class": "filename"}).text
+    reply += f"[{name} {size}]({dl_url})\n"
     return reply
 
 
 def sourceforge(url: str) -> str:
     """ SourceForge direct links generator """
     try:
-        link = re.findall(r'\bhttps?://.*sourceforge\.net\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*sourceforge\.net\S+", url)[0]
     except IndexError:
         reply = "`No SourceForge links found`\n"
         return reply
-    file_path = re.findall(r'files(.*)/download', link)[0]
+    file_path = re.findall(r"files(.*)/download", link)[0]
     reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
-    project = re.findall(r'projects?/(.*?)/files', link)[0]
-    mirrors = f'https://sourceforge.net/settings/mirror_choices?' \
-        f'projectname={project}&filename={file_path}'
-    page = BeautifulSoup(requests.get(mirrors).content, 'html.parser')
-    info = page.find('ul', {'id': 'mirrorList'}).findAll('li')
+    project = re.findall(r"projects?/(.*?)/files", link)[0]
+    mirrors = (
+        f"https://sourceforge.net/settings/mirror_choices?"
+        f"projectname={project}&filename={file_path}"
+    )
+    page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
+    info = page.find("ul", {"id": "mirrorList"}).findAll("li")
     for mirror in info[1:]:
-        name = re.findall(r'\((.*)\)', mirror.text.strip())[0]
-        dl_url = f'https://{mirror["id"]}.dl.sourceforge.net/project/{project}/{file_path}'
-        reply += f'[{name}]({dl_url}) '
+        name = re.findall(r"\((.*)\)", mirror.text.strip())[0]
+        dl_url = (
+            f'https://{mirror["id"]}.dl.sourceforge.net/project/{project}/{file_path}'
+        )
+        reply += f"[{name}]({dl_url}) "
     return reply
 
 
 def osdn(url: str) -> str:
     """ OSDN direct links generator """
-    osdn_link = 'https://osdn.net'
+    osdn_link = "https://osdn.net"
     try:
-        link = re.findall(r'\bhttps?://.*osdn\.net\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*osdn\.net\S+", url)[0]
     except IndexError:
         reply = "`No OSDN links found`\n"
         return reply
-    page = BeautifulSoup(
-        requests.get(link, allow_redirects=True).content, 'lxml')
-    info = page.find('a', {'class': 'mirror_link'})
-    link = urllib.parse.unquote(osdn_link + info['href'])
+    page = BeautifulSoup(requests.get(link, allow_redirects=True).content, "lxml")
+    info = page.find("a", {"class": "mirror_link"})
+    link = urllib.parse.unquote(osdn_link + info["href"])
     reply = f"Mirrors for __{link.split('/')[-1]}__\n"
-    mirrors = page.find('form', {'id': 'mirror-select-form'}).findAll('tr')
+    mirrors = page.find("form", {"id": "mirror-select-form"}).findAll("tr")
     for data in mirrors[1:]:
-        mirror = data.find('input')['value']
-        name = re.findall(r'\((.*)\)', data.findAll('td')[-1].text.strip())[0]
-        dl_url = re.sub(r'm=(.*)&f', f'm={mirror}&f', link)
-        reply += f'[{name}]({dl_url}) '
+        mirror = data.find("input")["value"]
+        name = re.findall(r"\((.*)\)", data.findAll("td")[-1].text.strip())[0]
+        dl_url = re.sub(r"m=(.*)&f", f"m={mirror}&f", link)
+        reply += f"[{name}]({dl_url}) "
     return reply
 
 
 def github(url: str) -> str:
     """ GitHub direct links generator """
     try:
-        link = re.findall(r'\bhttps?://.*github\.com.*releases\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*github\.com.*releases\S+", url)[0]
     except IndexError:
         reply = "`No GitHub Releases links found`\n"
         return reply
-    reply = ''
-    dl_url = ''
+    reply = ""
+    dl_url = ""
     download = requests.get(url, stream=True, allow_redirects=False)
     try:
         dl_url = download.headers["location"]
     except KeyError:
         reply += "`Error: Can't extract the link`\n"
-    name = link.split('/')[-1]
-    reply += f'[{name}]({dl_url}) '
+    name = link.split("/")[-1]
+    reply += f"[{name}]({dl_url}) "
     return reply
 
 
 def androidfilehost(url: str) -> str:
     """ AFH direct links generator """
     try:
-        link = re.findall(r'\bhttps?://.*androidfilehost.*fid.*\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*androidfilehost.*fid.*\S+", url)[0]
     except IndexError:
         reply = "`No AFH links found`\n"
         return reply
-    fid = re.findall(r'\?fid=(.*)', link)[0]
+    fid = re.findall(r"\?fid=(.*)", link)[0]
     session = requests.Session()
     user_agent = useragent()
-    headers = {'user-agent': user_agent}
+    headers = {"user-agent": user_agent}
     res = session.get(link, headers=headers, allow_redirects=True)
     headers = {
-        'origin': 'https://androidfilehost.com',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'en-US,en;q=0.9',
-        'user-agent': user_agent,
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'x-mod-sbb-ctype': 'xhr',
-        'accept': '*/*',
-        'referer': f'https://androidfilehost.com/?fid={fid}',
-        'authority': 'androidfilehost.com',
-        'x-requested-with': 'XMLHttpRequest',
+        "origin": "https://androidfilehost.com",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "en-US,en;q=0.9",
+        "user-agent": user_agent,
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-mod-sbb-ctype": "xhr",
+        "accept": "*/*",
+        "referer": f"https://androidfilehost.com/?fid={fid}",
+        "authority": "androidfilehost.com",
+        "x-requested-with": "XMLHttpRequest",
     }
-    data = {
-        'submit': 'submit',
-        'action': 'getdownloadmirrors',
-        'fid': f'{fid}'
-    }
+    data = {"submit": "submit", "action": "getdownloadmirrors", "fid": f"{fid}"}
     mirrors = None
-    reply = ''
+    reply = ""
     error = "`Error: Can't find Mirrors for the link`\n"
     try:
         req = session.post(
-            'https://androidfilehost.com/libs/otf/mirrors.otf.php',
+            "https://androidfilehost.com/libs/otf/mirrors.otf.php",
             headers=headers,
             data=data,
-            cookies=res.cookies)
-        mirrors = req.json()['MIRRORS']
+            cookies=res.cookies,
+        )
+        mirrors = req.json()["MIRRORS"]
     except (json.decoder.JSONDecodeError, TypeError):
         reply += error
     if not mirrors:
         reply += error
         return reply
     for item in mirrors:
-        name = item['name']
-        dl_url = item['url']
-        reply += f'[{name}]({dl_url}) '
+        name = item["name"]
+        dl_url = item["url"]
+        reply += f"[{name}]({dl_url}) "
     return reply
 
 
@@ -1103,9 +1112,11 @@ def useragent():
     """
     useragents = BeautifulSoup(
         requests.get(
-            'https://developers.whatismybrowser.com/'
-            'useragents/explore/operating_system_name/android/').content,
-        'lxml').findAll('td', {'class': 'useragent'})
+            "https://developers.whatismybrowser.com/"
+            "useragents/explore/operating_system_name/android/"
+        ).content,
+        "lxml",
+    ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
     return user_agent.text
 
@@ -1185,11 +1196,11 @@ async def get_dogbin_content(dog_url):
     format_view = f"{DOGBIN_URL}v/"
 
     if message.startswith(format_view):
-        message = message[len(format_view):]
+        message = message[len(format_view) :]
     elif message.startswith(format_normal):
-        message = message[len(format_normal):]
+        message = message[len(format_normal) :]
     elif message.startswith("del.dog/"):
-        message = message[len("del.dog/"):]
+        message = message[len("del.dog/") :]
     else:
         return await dog_url.edit("`Is that even a dogbin url?`")
 
@@ -1213,8 +1224,8 @@ async def get_dogbin_content(dog_url):
         return
 
     reply_text = (
-        "`Fetched dogbin URL content successfully!`"
-        "\n\n`Content:` " + resp.text)
+        "`Fetched dogbin URL content successfully!`" "\n\n`Content:` " + resp.text
+    )
 
     await dog_url.edit(reply_text)
     if BOTLOG:
@@ -1287,7 +1298,7 @@ async def capture(url):
     chrome_options.arguments.remove("--window-size=1920x1080")
     driver = await chrome(chrome_options=chrome_options)
     input_str = url.pattern_match.group(1)
-    link_match = match(r'\bhttps?://.*\.\S+', input_str)
+    link_match = match(r"\bhttps?://.*\.\S+", input_str)
     if link_match:
         link = link_match.group()
     else:
@@ -1296,18 +1307,21 @@ async def capture(url):
     height = driver.execute_script(
         "return Math.max(document.body.scrollHeight, document.body.offsetHeight, "
         "document.documentElement.clientHeight, document.documentElement.scrollHeight, "
-        "document.documentElement.offsetHeight);")
+        "document.documentElement.offsetHeight);"
+    )
     width = driver.execute_script(
         "return Math.max(document.body.scrollWidth, document.body.offsetWidth, "
         "document.documentElement.clientWidth, document.documentElement.scrollWidth, "
-        "document.documentElement.offsetWidth);")
+        "document.documentElement.offsetWidth);"
+    )
     driver.set_window_size(width + 125, height + 125)
     wait_for = height / 1000
     await url.edit(
         "`Generating screenshot of the page...`"
         f"\n`Height of page = {height}px`"
         f"\n`Width of page = {width}px`"
-        f"\n`Waiting ({int(wait_for)}s) for the page to load.`")
+        f"\n`Waiting ({int(wait_for)}s) for the page to load.`"
+    )
     await sleep(int(wait_for))
     im_png = driver.get_screenshot_as_png()
     # saves screenshot of entire page
@@ -1318,12 +1332,15 @@ async def capture(url):
     with io.BytesIO(im_png) as out_file:
         out_file.name = "screencapture.png"
         await url.edit("`Uploading screenshot as file..`")
-        await url.client.send_file(url.chat_id,
-                                   out_file,
-                                   caption=input_str,
-                                   force_document=True,
-                                   reply_to=message_id)
+        await url.client.send_file(
+            url.chat_id,
+            out_file,
+            caption=input_str,
+            force_document=True,
+            reply_to=message_id,
+        )
         await url.delete()
+
 
 CMD_HELP.update(
     {
@@ -1367,4 +1384,6 @@ CMD_HELP.update(
 \n\nSupported Urls: `Google Drive` - `Cloud Mail` - `Yandex.Disk` - `AFH` - `ZippyShare` - `MediaFire` - `SourceForge` - `OSDN` - `GitHub`",
         "screenshot": "`.ss <url>`\
 \nUsage: Takes a screenshot of a website and sends the screenshot.\
-\n\nExample of a valid URL : `https://www.google.com`"})
+\n\nExample of a valid URL : `https://www.google.com`",
+    }
+)

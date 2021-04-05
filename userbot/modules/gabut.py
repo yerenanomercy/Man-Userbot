@@ -1,9 +1,10 @@
 # Recode by @mrismanaziz
 
-from datetime import datetime
 import time
-from time import sleep
+from datetime import datetime
 from platform import uname
+from time import sleep
+
 from userbot import ALIVE_NAME, CMD_HELP, StartTime
 from userbot.events import register
 
@@ -20,9 +21,7 @@ async def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        remainder, result = divmod(
-            seconds, 60) if count < 3 else divmod(
-            seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -50,11 +49,12 @@ async def pingme(pong):
     await pong.edit("**☬𝐒𝐈𝐀𝐏 𝐊𝐀𝐌𝐏𝐀𝐍𝐆 𝐌𝐄𝐍𝐔𝐌𝐁𝐔𝐊 𝐀𝐒𝐔☬**")
     end = datetime.now()
     duration = (end - start).microseconds / 1000
-    await pong.edit(f"**✲ 𝙺𝙾𝙽𝚃𝙾𝙻 𝙼𝙴𝙻𝙴𝙳𝚄𝙶** "
-                    f"\n ⫸ ᴷᵒⁿᵗᵒˡ `%sms` \n"
-                    f"**✲ 𝙱𝙸𝙹𝙸 𝙿𝙴𝙻𝙴𝚁** "
-
-                    f"\n ⫸ ᴷᵃᵐᵖᵃⁿᵍ『`{ALIVE_NAME}`』 \n" % (duration))
+    await pong.edit(
+        f"**✲ 𝙺𝙾𝙽𝚃𝙾𝙻 𝙼𝙴𝙻𝙴𝙳𝚄𝙶** "
+        f"\n ⫸ ᴷᵒⁿᵗᵒˡ `%sms` \n"
+        f"**✲ 𝙱𝙸𝙹𝙸 𝙿𝙴𝙻𝙴𝚁** "
+        f"\n ⫸ ᴷᵃᵐᵖᵃⁿᵍ『`{ALIVE_NAME}`』 \n" % (duration)
+    )
 
 
 @register(outgoing=True, pattern="^.kping$")
@@ -65,22 +65,36 @@ async def pingme(pong):
     await pong.edit("`KONTOLL....`")
     end = datetime.now()
     duration = (end - start).microseconds / 1000
-    await pong.edit(f"**NGENTOT!! 🐨**\n**KAMPANG** : %sms\n**Bot Uptime** : {uptime}🕛" % (duration))
+    await pong.edit(
+        f"**NGENTOT!! 🐨**\n**KAMPANG** : %sms\n**Bot Uptime** : {uptime}🕛" % (duration)
+    )
 
 
-@register(outgoing=True, pattern='^.usange(?: |$)(.*)')
+@register(outgoing=True, pattern="^.usange(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
     await typew.edit("`Getting Information...`")
     sleep(1)
-    await typew.edit("**Informasi Dyno ★**:\n\n╭━━━━━━━━━━━━━━━━━━━━╮\n" f"-> `Penggunaan Dyno` **{ALIVE_NAME}**:\n" f" ❉ **10 Jam - " f"51 Menit - 0%**" "\n ◐━─━─━─━─━──━─━─━─━─━◐\n" "-> `Sisa Dyno Bulan Ini`:\n" f" ❉ **9989 Jam - 9948 Menit " f"- 99%**\n" "╰━━━━━━━━━━━━━━━━━━━━╯"
-                     )
+    await typew.edit(
+        "**Informasi Dyno ★**:\n\n╭━━━━━━━━━━━━━━━━━━━━╮\n"
+        f"-> `Penggunaan Dyno` **{ALIVE_NAME}**:\n"
+        f" ❉ **10 Jam - "
+        f"51 Menit - 0%**"
+        "\n ◐━─━─━─━─━──━─━─━─━─━◐\n"
+        "-> `Sisa Dyno Bulan Ini`:\n"
+        f" ❉ **9989 Jam - 9948 Menit "
+        f"- 99%**\n"
+        "╰━━━━━━━━━━━━━━━━━━━━╯"
+    )
+
+
 # @mixiologist
 
 
-CMD_HELP.update({
-    "fakedyno":
-    "`.usange`\
+CMD_HELP.update(
+    {
+        "fakedyno": "`.usange`\
 \nUsage: Dynos tipu tipu anjeeeng."
-})
+    }
+)

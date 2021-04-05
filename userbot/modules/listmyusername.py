@@ -1,9 +1,10 @@
 # Recode by @mrismanaziz
 # @sharinguserbot
 
-from userbot.events import register
-from userbot import CMD_HELP
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
+
+from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".listmyusername ?(.*)")

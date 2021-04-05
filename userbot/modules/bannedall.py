@@ -5,13 +5,18 @@
 # @sharinguserbot
 
 from telethon.tl import functions
-from telethon.tl.types import (ChatBannedRights, UserStatusEmpty,
-                               UserStatusLastMonth, UserStatusLastWeek,
-                               UserStatusOffline, UserStatusOnline,
-                               UserStatusRecently)
+from telethon.tl.types import (
+    ChatBannedRights,
+    UserStatusEmpty,
+    UserStatusLastMonth,
+    UserStatusLastWeek,
+    UserStatusOffline,
+    UserStatusOnline,
+    UserStatusRecently,
+)
 
-from userbot.events import register
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".rmusers ?(.*)")
@@ -165,8 +170,10 @@ async def _(event):
         required_string += f"**••None**  `Last Seen A Long Time Ago`\n"
     await eod(xx, required_string)
 
+
 CMD_HELP.update(
     {
         "bannedall": ".rmusers\
     \nUsage : Menghapus/Banned user dari grup dengan spesifik."
-    })
+    }
+)

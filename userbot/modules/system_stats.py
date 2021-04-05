@@ -7,22 +7,30 @@
 """ Userbot module for System Stats commands """
 
 import asyncio
-from asyncio import create_subprocess_exec as asyncrunapp
-from asyncio.subprocess import PIPE as asyncPIPE
-from platform import python_version, uname
-from shutil import which
-from os import remove
-from telethon import version
-from telethon import __version__, version
 import platform
 import sys
 import time
+from asyncio import create_subprocess_exec as asyncrunapp
+from asyncio.subprocess import PIPE as asyncPIPE
 from datetime import datetime
+from os import remove
+from platform import python_version, uname
+from shutil import which
+
 import psutil
+from telethon import __version__, version
 
-from userbot import ALIVE_LOGO, ALIVE_NAME, BOT_VER, ALIVE_TEKS_KUSTOM, CMD_HELP, StartTime, UPSTREAM_REPO_BRANCH, bot
+from userbot import (
+    ALIVE_LOGO,
+    ALIVE_NAME,
+    ALIVE_TEKS_KUSTOM,
+    BOT_VER,
+    CMD_HELP,
+    UPSTREAM_REPO_BRANCH,
+    StartTime,
+    bot,
+)
 from userbot.events import register
-
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
@@ -40,9 +48,7 @@ async def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        remainder, result = divmod(
-            seconds, 60) if count < 3 else divmod(
-            seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -73,10 +79,8 @@ async def psu(event):
     softw += f"`Waktu Hidup: {bt.day}/{bt.month}/{bt.year}  {bt.hour}:{bt.minute}:{bt.second}`\n"
     # CPU Cores
     cpuu = "**Informasi CPU**\n"
-    cpuu += "`Physical cores   : " + \
-        str(psutil.cpu_count(logical=False)) + "`\n"
-    cpuu += "`Total cores      : " + \
-        str(psutil.cpu_count(logical=True)) + "`\n"
+    cpuu += "`Physical cores   : " + str(psutil.cpu_count(logical=False)) + "`\n"
+    cpuu += "`Total cores      : " + str(psutil.cpu_count(logical=True)) + "`\n"
     # CPU frequencies
     cpufreq = psutil.cpu_freq()
     cpuu += f"`Max Frequency    : {cpufreq.max:.2f}Mhz`\n"
@@ -129,8 +133,7 @@ async def sysdetails(sysd):
             )
 
             stdout, stderr = await fetch.communicate()
-            result = str(stdout.decode().strip()) + \
-                str(stderr.decode().strip())
+            result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
             await sysd.edit("`" + result + "`")
         except FileNotFoundError:
@@ -165,15 +168,10 @@ async def bot_ver(event):
         revout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         await event.edit(
-            "**✥**Userbot Versi:** \n "
-            f"{verout}"
-            "\n**✥**Revisi:**\n "
-            f"{revout}"
+            "**✥**Userbot Versi:** \n " f"{verout}" "\n**✥**Revisi:**\n " f"{revout}"
         )
     else:
-        await event.edit(
-            "anda tidak memiliki git, Anda Menjalankan Bot - 'v1.beta.4'!"
-        )
+        await event.edit("anda tidak memiliki git, Anda Menjalankan Bot - 'v1.beta.4'!")
 
 
 @register(outgoing=True, pattern=r"^\.pip(?: |$)(.*)")
@@ -242,7 +240,8 @@ async def amireallyalive(alive):
         f"┣✣ `Bot Ver  : `{BOT_VER} \n"
         f"┣✣ `Modules  : `{len(modules)} \n"
         f"┣✣ `Uptime   : `{uptime} \n"
-        f"┗━━━━━━━━━━━━━━━━")
+        f"┗━━━━━━━━━━━━━━━━"
+    )
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
@@ -280,7 +279,8 @@ async def amireallyalive(alive):
         f"┣[•🗃 `Modules  :`{len(modules)} Loaded🔥\n"
         f"┣[•🕒 `Uptime   :`{uptime} 🔥\n"
         f"╰━━━━━━━━━━━━━━━━━━━━━╯\n"
-        f" • MOD BY : `{DEFAULTUSER}`")
+        f" • MOD BY : `{DEFAULTUSER}`"
+    )
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
@@ -320,7 +320,8 @@ async def amireallyalive(alive):
         f"❃ **Repo Userbot :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot) \n"
         f"❃ **Grup Userbot :** [Tekan Disini](https://t.me/sharinguserbot) \n"
         f"❃ **Owner :** [Risman](t.me/mrismanaziz) \n"
-        f"┗━━━━━━━━━━━━━━ \n")
+        f"┗━━━━━━━━━━━━━━ \n"
+    )
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
@@ -360,9 +361,9 @@ async def amireallyalivereset(ureset):
     await ureset.edit("`" "Successfully reset user for alive!" "`")
 
 
-CMD_HELP.update({
-    "system":
-    "`.sysd`\
+CMD_HELP.update(
+    {
+        "system": "`.sysd`\
 \nUsage: Shows system information using neofetch.\
 \n\n`.botver`\
 \nUsage: Shows the userbot version.\
@@ -378,4 +379,5 @@ CMD_HELP.update({
 \nUsage:Shows database related info.\
 \n\n.`.spc`\
 \nUsage:Show system specification."
-})
+    }
+)

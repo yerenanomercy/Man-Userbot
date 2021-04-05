@@ -22,8 +22,7 @@ auth_url = r["auth_url"]
 @register(outgoing=True, pattern=r"^\.tg (m|t)$")
 async def telegraphs(graph):
     await graph.edit("`Sedang Memproses...`")
-    if not graph.text[0].isalpha() and graph.text[0] not in (
-            "/", "#", "@", "!"):
+    if not graph.text[0].isalpha() and graph.text[0] not in ("/", "#", "@", "!"):
         if graph.fwd_from:
             return
         if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -92,7 +91,9 @@ async def telegraphs(graph):
                     link_preview=True,
                 )
         else:
-            await graph.edit("`Mohon Balas Ke Pesan, Untuk Mendapatkan Link Telegraph Permanen.`")
+            await graph.edit(
+                "`Mohon Balas Ke Pesan, Untuk Mendapatkan Link Telegraph Permanen.`"
+            )
 
 
 def resize_image(image):
@@ -100,5 +101,9 @@ def resize_image(image):
     im.save(image, "PNG")
 
 
-CMD_HELP.update({"telegraph": ">`.tg` <m|t>"
-                 "\nUsage: Mengunggah t(Teks) Atau m(Media) Ke Telegraph."})
+CMD_HELP.update(
+    {
+        "telegraph": ">`.tg` <m|t>"
+        "\nUsage: Mengunggah t(Teks) Atau m(Media) Ke Telegraph."
+    }
+)

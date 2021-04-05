@@ -30,7 +30,7 @@ from telethon.tl.types import (
     PeerChat,
 )
 
-from userbot import BOTLOG, BOTLOG_CHATID, ALIVE_NAME, CMD_HELP
+from userbot import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP
 from userbot.events import register
 
 # =================== CONSTANT ===================
@@ -247,17 +247,19 @@ async def ban(bon):
     # is done gracefully
     # Shout out the ID, so that fedadmins can fban later
     if reason:
-        await bon.edit(r"\\**#Banned_User**//"
-                       f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                       f"**User ID:** `{str(user.id)}`\n"
-                       f"**Reason:** `{reason}`"
-                       )
+        await bon.edit(
+            r"\\**#Banned_User**//"
+            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+            f"**User ID:** `{str(user.id)}`\n"
+            f"**Reason:** `{reason}`"
+        )
     else:
-        await bon.edit(r"\\**#Banned_User**//"
-                       f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                       f"**User ID:** `{str(user.id)}`\n"
-                       f"**Action:** `Banned User by {ALIVE_NAME}`"
-                       )
+        await bon.edit(
+            r"\\**#Banned_User**//"
+            f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+            f"**User ID:** `{str(user.id)}`\n"
+            f"**Action:** `Banned User by {ALIVE_NAME}`"
+        )
     # Announce to the logging group if we have banned the person
     # successfully!
     if BOTLOG:
@@ -329,14 +331,10 @@ async def spider(spdr):
     self_user = await spdr.client.get_me()
 
     if user.id == self_user.id:
-        return await spdr.edit(
-            "`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`"
-        )
+        return await spdr.edit("`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`")
 
     if user.id == 844432220:
-        return await spdr.edit(
-            "`Gagal Mute Ke Man, Dia Adalah Pembuat Saya 🤪`"
-        )
+        return await spdr.edit("`Gagal Mute Ke Man, Dia Adalah Pembuat Saya 🤪`")
 
     # If everything goes well, do announcing and mute
     await spdr.edit("`Telah Dibisukan!`")
@@ -348,15 +346,19 @@ async def spider(spdr):
 
             # Announce that the function is done
             if reason:
-                await spdr.edit(r"\\**#DMute_User**//"
-                                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                                f"**User ID:** `{user.id}`\n"
-                                f"**Reason:** `{reason}`")
+                await spdr.edit(
+                    r"\\**#DMute_User**//"
+                    f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                    f"**User ID:** `{user.id}`\n"
+                    f"**Reason:** `{reason}`"
+                )
             else:
-                await spdr.edit(r"\\**#DMute_User**//"
-                                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                                f"**User ID:** `{user.id}`\n"
-                                f"**Action:** `DMute by {ALIVE_NAME}`")
+                await spdr.edit(
+                    r"\\**#DMute_User**//"
+                    f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                    f"**User ID:** `{user.id}`\n"
+                    f"**Action:** `DMute by {ALIVE_NAME}`"
+                )
 
             # Announce to logging group
             if BOTLOG:
@@ -400,7 +402,9 @@ async def unmoot(unmot):
 
         try:
             await unmot.client(EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-            await unmot.edit("```Berhasil Melakukan Unmute! User Sudah Tidak Lagi Dibisukan```")
+            await unmot.edit(
+                "```Berhasil Melakukan Unmute! User Sudah Tidak Lagi Dibisukan```"
+            )
             await sleep(3)
             await unmot.delete()
         except UserIdInvalidError:
@@ -512,14 +516,10 @@ async def gspider(gspdr):
     self_user = await gspdr.client.get_me()
 
     if user.id == self_user.id:
-        return await gspdr.edit(
-            "`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`"
-        )
+        return await gspdr.edit("`Tidak Bisa Membisukan Diri Sendiri..（>﹏<）`")
 
     if user.id == 844432220:
-        return await gspdr.edit(
-            "`Gagal Global Mute Ke Man, Dia Adalah Pembuat Saya 🤪`"
-        )
+        return await gspdr.edit("`Gagal Global Mute Ke Man, Dia Adalah Pembuat Saya 🤪`")
 
     # If pass, inform and start gmuting
     await gspdr.edit("`Berhasil Membisukan Pengguna!`")
@@ -527,15 +527,19 @@ async def gspider(gspdr):
         await gspdr.edit("`Kesalahan! Pengguna Sudah Dibisukan.`")
     else:
         if reason:
-            await gspdr.edit(r"\\**#GMuted_User**//"
-                             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                             f"**User ID:** `{user.id}`\n"
-                             f"**Reason:** `{reason}`")
+            await gspdr.edit(
+                r"\\**#GMuted_User**//"
+                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                f"**User ID:** `{user.id}`\n"
+                f"**Reason:** `{reason}`"
+            )
         else:
-            await gspdr.edit(r"\\**#GMuted_User**//"
-                             f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                             f"**User ID:** `{user.id}`\n"
-                             f"**Action:** `Global Muted by {ALIVE_NAME}`")
+            await gspdr.edit(
+                r"\\**#GMuted_User**//"
+                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                f"**User ID:** `{user.id}`\n"
+                f"**Action:** `Global Muted by {ALIVE_NAME}`"
+            )
 
         if BOTLOG:
             await gspdr.client.send_message(
@@ -563,7 +567,8 @@ async def rm_deletedacc(show):
         if del_u > 0:
             del_status = (
                 f"`Menemukan` **{del_u}** `Akun Hantu/Terhapus/Zombie Dalam Grup Ini,"
-                "\nBersihkan Itu Menggunakan Perintah .zombies clean`")
+                "\nBersihkan Itu Menggunakan Perintah .zombies clean`"
+            )
         return await show.edit(del_status)
 
     # Here laying the sanity check
@@ -705,7 +710,9 @@ async def kick(usr):
             f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**\n**Alasan:** `{reason}`"
         )
     else:
-        await usr.edit(f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**")
+        await usr.edit(
+            f"[{user.first_name}](tg://user?id={user.id}) **Telah Dikick Dari Grup**"
+        )
         await sleep(5)
         await usr.delete()
 
@@ -748,7 +755,9 @@ async def get_users(show):
     try:
         await show.edit(mentions)
     except MessageTooLongError:
-        await show.edit("Grup Ini Terlalu Besar Mengunggah Daftar Pengguna Sebagai File.")
+        await show.edit(
+            "Grup Ini Terlalu Besar Mengunggah Daftar Pengguna Sebagai File."
+        )
         file = open("daftarpengguna.txt", "w+")
         file.write(mentions)
         file.close()
@@ -782,9 +791,7 @@ async def get_user_from_event(event):
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
-            if isinstance(
-                    probable_user_mention_entity,
-                    MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 user_obj = await event.client.get_entity(user_id)
                 return user_obj
@@ -874,9 +881,7 @@ async def get_userdel_from_event(event):
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
-            if isinstance(
-                    probable_user_mention_entity,
-                    MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 user_obj = await event.client.get_entity(user_id)
                 return user_obj
@@ -907,7 +912,9 @@ async def get_bots(show):
     mentions = f"<b>Daftar Bot Di {title}:</b>\n"
     try:
         if isinstance(show.to_id, PeerChat):
-            return await show.edit("`Saya mendengar bahwa hanya Supergrup yang dapat memiliki bot`")
+            return await show.edit(
+                "`Saya mendengar bahwa hanya Supergrup yang dapat memiliki bot`"
+            )
         else:
             async for user in show.client.iter_participants(
                 show.chat_id, filter=ChannelParticipantsBots
@@ -923,7 +930,9 @@ async def get_bots(show):
     try:
         await show.edit(mentions, parse_mode="html")
     except MessageTooLongError:
-        await show.edit("Terlalu Banyak Bot Di Grup Ini, Mengunggah Daftar Bot Sebagai File.")
+        await show.edit(
+            "Terlalu Banyak Bot Di Grup Ini, Mengunggah Daftar Bot Sebagai File."
+        )
         file = open("botlist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -966,4 +975,6 @@ CMD_HELP.update(
         "\n\n>`.users` Atau >`.users <nama member>`"
         "\nUsage: Mendapatkan daftar pengguna daam grup."
         "\n\n>`.setgpic <balas ke gambar>`"
-        "\nUsage: Mengganti foto profil grup."})
+        "\nUsage: Mengganti foto profil grup."
+    }
+)

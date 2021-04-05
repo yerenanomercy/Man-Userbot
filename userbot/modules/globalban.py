@@ -2,14 +2,15 @@
 # Lord Userbot
 
 from telethon.events import ChatAction
-from userbot import ALIVE_NAME, CMD_HELP, bot
 from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
-from userbot.events import register
 from telethon.tl.types import MessageEntityMentionName
+
+from userbot import ALIVE_NAME, CMD_HELP, bot
+from userbot.events import register
 
 
 async def get_full_user(event):
-    args = event.pattern_match.group(1).split(':', 1)
+    args = event.pattern_match.group(1).split(":", 1)
     extra = None
     if event.reply_to_msg_id and not len(args) == 2:
         previous_message = await event.get_reply_message()
@@ -26,15 +27,16 @@ async def get_full_user(event):
             return
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
-            if isinstance(probable_user_mention_entity,
-                          MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 user_obj = await event.client.get_entity(user_id)
                 return user_obj
         try:
             user_obj = await event.client.get_entity(user)
         except Exception as err:
-            return await event.edit("`Terjadi Kesalahan... Mohon Lapor Ke ` @mrismanaziz", str(err))
+            return await event.edit(
+                "`Terjadi Kesalahan... Mohon Lapor Ke ` @mrismanaziz", str(err)
+            )
     return user_obj, extra
 
 
@@ -47,6 +49,8 @@ async def get_user_from_id(user, event):
         await event.edit(str(err))
         return None
     return user_obj
+
+
 # Ported For Lord-Userbot by liualvinas/Alvin
 
 
@@ -131,17 +135,21 @@ async def gben(userbot):
             try:
                 await userbot.client.edit_permissions(i, user, view_messages=False)
                 a += 1
-                await dark.edit(r"\\**#GBanned_User**//"
-                                f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
-                                f"**User ID:** `{user.id}`\n"
-                                f"**Action:** `Global Banned`")
+                await dark.edit(
+                    r"\\**#GBanned_User**//"
+                    f"\n\n**First Name:** [{user.first_name}](tg://user?id={user.id})\n"
+                    f"**User ID:** `{user.id}`\n"
+                    f"**Action:** `Global Banned`"
+                )
             except BaseException:
                 b += 1
     else:
         await dark.edit(f"`Balas Ke Pesan Penggunanya Goblok`")
     try:
         if gmute(user.id) is False:
-            return await dark.edit(f"**#Already_GBanned**\n\nUser Already Exists in My Gban List.**")
+            return await dark.edit(
+                f"**#Already_GBanned**\n\nUser Already Exists in My Gban List.**"
+            )
     except BaseException:
         pass
     return await dark.edit(
@@ -183,7 +191,9 @@ async def gunben(userbot):
         return await dark.edit("`Gagal Ungbanned :(")
     if user:
         if user.id == 844432220:
-            return await dark.edit("`Man Tidak Bisa Terkena Perintah Ini, Karna Dia Pembuat saya`")
+            return await dark.edit(
+                "`Man Tidak Bisa Terkena Perintah Ini, Karna Dia Pembuat saya`"
+            )
         try:
             from userbot.modules.sql_helper.gmute_sql import ungmute
         except BaseException:
@@ -219,10 +229,12 @@ async def gunben(userbot):
     )
 
 
-CMD_HELP.update({
-    "gban": "\
+CMD_HELP.update(
+    {
+        "gban": "\
 `.gban`\
 \nUsage: Melakukan Banned Secara Global Ke Semua Grup Dimana Lord Sebagai Admin.\
 \n\n`.ungban`\
 \nUsage: Membatalkan Global Banned"
-})
+    }
+)

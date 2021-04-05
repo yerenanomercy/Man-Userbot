@@ -6,6 +6,7 @@
 """ Userbot help command """
 
 import asyncio
+
 from userbot import CMD_HELP
 from userbot.events import register
 
@@ -28,9 +29,11 @@ async def help(event):
         for i in CMD_HELP:
             string += "`" + str(i)
             string += "`\t❉ "
-        await event.edit("**✥ Daftar Perintah Untuk Man-Userbot :\n\n**"
-                         f"❉{string}❉"
-                         "\n")
-        await event.reply(f"\n**Ketik Contoh** `.help afk` **Untuk Melihat Informasi Perintah**")
+        await event.edit(
+            "**✥ Daftar Perintah Untuk Man-Userbot :\n\n**" f"❉{string}❉" "\n"
+        )
+        await event.reply(
+            f"\n**Ketik Contoh** `.help afk` **Untuk Melihat Informasi Perintah**"
+        )
         await asyncio.sleep(1000)
         await event.delete()

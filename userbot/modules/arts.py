@@ -6,7 +6,7 @@ from userbot import CMD_HELP
 from userbot.events import register
 
 
-@register(outgoing=True, pattern='^.frog(?: |$)(.*)')
+@register(outgoing=True, pattern="^.frog(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -28,7 +28,7 @@ async def typewriter(typew):
     )
 
 
-@register(outgoing=True, pattern='^.dfrog(?: |$)(.*)')
+@register(outgoing=True, pattern="^.dfrog(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -50,7 +50,7 @@ async def typewriter(typew):
     )
 
 
-@register(outgoing=True, pattern='^.strump(?: |$)(.*)')
+@register(outgoing=True, pattern="^.strump(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -72,7 +72,7 @@ async def typewriter(typew):
     )
 
 
-@register(outgoing=True, pattern='^.scina(?: |$)(.*)')
+@register(outgoing=True, pattern="^.scina(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -95,7 +95,7 @@ async def typewriter(typew):
     )
 
 
-@register(outgoing=True, pattern='^.wlcm(?: |$)(.*)')
+@register(outgoing=True, pattern="^.wlcm(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -108,10 +108,11 @@ async def typewriter(typew):
         "█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█\n"
         "█░░║║║╠─║─║─║║║║║╠─░░█\n"
         "█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█\n"
-        "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n")
+        "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n"
+    )
 
 
-@register(outgoing=True, pattern='^.gta(?: |$)(.*)')
+@register(outgoing=True, pattern="^.gta(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -126,10 +127,11 @@ async def typewriter(typew):
         "⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣷\n"
         "⠀⠀⠘⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⢰⣾⣿⠏\n"
         "⠀⢠⣧⡔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠟⠁⠀\n"
-        "⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Ah\n shit, here we go again.\n")
+        "⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ Ah\n shit, here we go again.\n"
+    )
 
 
-@register(outgoing=True, pattern='^.sthink(?: |$)(.*)')
+@register(outgoing=True, pattern="^.sthink(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit(
@@ -150,9 +152,10 @@ async def typewriter(typew):
         "⠀⠀⠛⢿⣿⣿⣿⣿⣿⣿⡿⠟\n"
     )
 
-CMD_HELP.update({
-    "arts":
-    "`.frog`\
+
+CMD_HELP.update(
+    {
+        "arts": "`.frog`\
     \nUsage: arts Forg.\
     \n\n`.dfrog`\
     \nUsage: arts forg bundir\
@@ -166,4 +169,5 @@ CMD_HELP.update({
     \nUsage: arts si jhonson.\
     \n\n`.sthink`\
     \nUsage: arts berfikir"
-})
+    }
+)

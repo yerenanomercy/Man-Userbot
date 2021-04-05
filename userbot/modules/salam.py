@@ -1,4 +1,5 @@
 from platform import uname
+
 from userbot import ALIVE_NAME, CMD_HELP
 from userbot.events import register
 
@@ -7,19 +8,19 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
 
 
-@register(outgoing=True, pattern='^.p(?: |$)(.*)')
+@register(outgoing=True, pattern="^.p(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit("**Assalamualaikum Dulu Biar Sopan**")
 
 
-@register(outgoing=True, pattern='^.pe(?: |$)(.*)')
+@register(outgoing=True, pattern="^.pe(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit("**Assalamualaikum Warahmatullahi Wabarakatuh**")
 
 
-@register(outgoing=True, pattern='^.P(?: |$)(.*)')
+@register(outgoing=True, pattern="^.P(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
@@ -28,15 +29,15 @@ async def typewriter(typew):
     await typew.edit("**Assalamualaikum...**")
 
 
-@register(outgoing=True, pattern='^.l(?: |$)(.*)')
+@register(outgoing=True, pattern="^.l(?: |$)(.*)")
 async def typewriter(typew):
     typew.pattern_match.group(1)
     await typew.edit("**Wa'alaikumsalam**")
 
 
-CMD_HELP.update({
-    "salam":
-    "`.p`\
+CMD_HELP.update(
+    {
+        "salam": "`.p`\
     \nMenampilkan: Assalamualaikum Dulu Biar Sopan.\
     \n\n`.P`\
     \nMenampilkan: salam Kenal dan salam.\
@@ -56,4 +57,5 @@ CMD_HELP.update({
     \nMenampilkan: LU SEMUA NGENTOT 🔥\
     \n\n`.j`\
     \nMenampilkan: NIMBRUNG GOBLOKK!!!🔥"
-})
+    }
+)

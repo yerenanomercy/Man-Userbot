@@ -6,7 +6,8 @@
 # Lord Userbot
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import bot, CMD_HELP
+
+from userbot import CMD_HELP, bot
 from userbot.events import register
 
 # Alvin Gans
@@ -35,14 +36,12 @@ async def _(event):
             await event.edit("**Kesalahan:** `Buka Blokir` @ttsavebot `Dan Coba Lagi!`")
             return
         await bot.send_file(event.chat_id, video)
-        await event.client.delete_messages(conv.chat_id,
-                                           [msg_start.id, r.id, msg.id, details.id, video.id])
+        await event.client.delete_messages(
+            conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
+        )
         await event.delete()
 
 
 CMD_HELP.update(
-    {
-        "tiktok": ">`.tiktok <Link>`"
-        "\nUsage: Download Video Tiktok Tanpa Watermark"
-    }
+    {"tiktok": ">`.tiktok <Link>`" "\nUsage: Download Video Tiktok Tanpa Watermark"}
 )

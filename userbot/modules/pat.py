@@ -36,8 +36,9 @@ async def lastfm(event):
     remove(PAT_IMAGE)
 
 
-CMD_HELP.update({
-    "pat":
-    "`.pat` <reply msg>\
+CMD_HELP.update(
+    {
+        "pat": "`.pat` <reply msg>\
         \nUsage: Gives the replied user a pat"
-})
+    }
+)

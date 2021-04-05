@@ -3,8 +3,9 @@
 # t.me/sharinguserbot
 
 import requests
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".wikimedia ?(.*)")
@@ -13,7 +14,13 @@ async def _(event):
         return
     input_str = event.pattern_match.group(1)
     url = "https://commons.wikimedia.org/w/api.php?action={}&generator={}&prop=imageinfo&gimlimit={}&redirects=1&titles={}&iiprop={}&format={}".format(
-        "query", "images", "5", input_str, "timestamp|user|url|mime|thumbmime|mediatype", "json", )
+        "query",
+        "images",
+        "5",
+        input_str,
+        "timestamp|user|url|mime|thumbmime|mediatype",
+        "json",
+    )
     r = requests.get(url).json()
     result = ""
     results = r["query"]["pages"]
@@ -39,8 +46,10 @@ async def _(event):
         )
     await event.edit("**Search**: {} \n\n **Results**: {}".format(input_str, result))
 
+
 CMD_HELP.update(
     {
         "wikimedia": "`.wikimedia <query>`\
     \nUsage: Searchs qoury dari wikimedia."
-    })
+    }
+)

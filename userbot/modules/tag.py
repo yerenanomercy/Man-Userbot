@@ -12,13 +12,15 @@ from telethon.tl.types import UserStatusOnline as onn
 from telethon.tl.types import UserStatusRecently as rec
 from telethon.utils import get_display_name
 
-from userbot.events import register
 from userbot import CMD_HELP
+from userbot.events import register
 
 
-@register(outgoing=True,
-          pattern=".tag(on|off|all|bots|rec|admins|owner)?(.*)",
-          disable_errors=True)
+@register(
+    outgoing=True,
+    pattern=".tag(on|off|all|bots|rec|admins|owner)?(.*)",
+    disable_errors=True,
+)
 async def _(e):
     okk = e.text
     lll = e.pattern_match.group(2)
@@ -65,9 +67,9 @@ async def _(e):
     await e.delete()
 
 
-CMD_HELP.update({
-    "tagger":
-    "`.tagall`\
+CMD_HELP.update(
+    {
+        "tagger": "`.tagall`\
     \nUsage: Tag Top 100 Members di group chat.\
     \n\n`.tagadmins`\
     \nUsage: Tag Admins di group chat.\
@@ -81,4 +83,5 @@ CMD_HELP.update({
     \nUsage: Tag online Members (hanya berfungsi jika privasi dimatikan)\
     \n\n`.tagoff`\
     \nUsage: Tag Offline Members (hanya berfungsi jika privasi dimatikan)"
-})
+    }
+)

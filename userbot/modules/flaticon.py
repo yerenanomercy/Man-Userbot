@@ -3,8 +3,10 @@
 import os
 import random
 import urllib
+
 import requests
 from bs4 import BeautifulSoup as bs
+
 from userbot import CMD_HELP
 from userbot.events import register
 
@@ -21,8 +23,8 @@ async def www(e):
         ge = requests.get(link).content
         cl = bs(ge, "lxml", from_encoding="utf-8")
         results = cl.find_all(
-            "img",
-            src="https://media.flaticon.com/dist/min/img/loader.gif")
+            "img", src="https://media.flaticon.com/dist/min/img/loader.gif"
+        )
         dome = results[random.randrange(0, len(results) - 1)]["data-src"]
         urllib.request.urlretrieve(dome, "sticker.webp")
         await ultroid_bot.send_file(e.chat.id, "sticker.webp")
@@ -31,8 +33,10 @@ async def www(e):
     except Exception:
         await tt.edit("`No Results Found`")
 
-CMD_HELP.update({
-    "flaticon":
-    "`.flaticon` <namaicon>\
+
+CMD_HELP.update(
+    {
+        "flaticon": "`.flaticon` <namaicon>\
         \nUsage: mencari icon dari flaticon.com dan mengunggah sebagai stiker."
-})
+    }
+)

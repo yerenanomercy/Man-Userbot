@@ -4,8 +4,9 @@
 
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".circle ?(.*)")
@@ -41,11 +42,16 @@ async def _(event):
             )
         else:
             await event.delete()
-            await event.client.send_file(event.chat_id, response.message.media,)
+            await event.client.send_file(
+                event.chat_id,
+                response.message.media,
+            )
             await event.client.send_read_acknowledge(conv.chat_id)
+
 
 CMD_HELP.update(
     {
         "circle": "`.circle <reply video>`\
     \nUsage: Untuk mengubah video ukuran persegi menjadi Bulan seperti video message."
-    })
+    }
+)

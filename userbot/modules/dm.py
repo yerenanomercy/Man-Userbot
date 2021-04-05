@@ -1,6 +1,7 @@
 from telethon import *
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".dm ?(.*)", disable_errors=True)
@@ -33,5 +34,9 @@ async def _(dc):
     except BaseException:  # hmmmmmmmmm🤔🤔
         await dc.edit(".dm (username) (text)")
 
+
 CMD_HELP.update(
-    {"dm": ".dm (username) (text)\n or\n .dm (username)(reply to msg)\n it'll forward the replyed msg"})
+    {
+        "dm": ".dm (username) (text)\n or\n .dm (username)(reply to msg)\n it'll forward the replyed msg"
+    }
+)

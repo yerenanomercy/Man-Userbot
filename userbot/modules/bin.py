@@ -3,8 +3,9 @@
 
 from telethon import events, functions
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot.events import register
+
 from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern=".bin ?(.*)")
@@ -17,9 +18,8 @@ async def _(event):
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=1247032902))
+                events.NewMessage(incoming=True, from_users=1247032902)
+            )
             await event.client.send_message(chat, "/bin {}".format(danish))
             respond = await response
         except YouBlockedUserError:
@@ -45,9 +45,8 @@ async def _(event):
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=1247032902))
+                events.NewMessage(incoming=True, from_users=1247032902)
+            )
             await event.client.send_message(chat, "/vbv {}".format(danish))
             respond = await response
         except YouBlockedUserError:
@@ -73,9 +72,8 @@ async def _(event):
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=1247032902))
+                events.NewMessage(incoming=True, from_users=1247032902)
+            )
             await event.client.send_message(chat, "/key {}".format(danish))
             response = await response
         except YouBlockedUserError:
@@ -100,9 +98,8 @@ async def _(event):
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=1247032902))
+                events.NewMessage(incoming=True, from_users=1247032902)
+            )
             await event.client.send_message(chat, "/iban {}".format(danish))
             response = await response
         except YouBlockedUserError:
