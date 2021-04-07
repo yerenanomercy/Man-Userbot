@@ -20,7 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 from PIL import Image
 
-from userbot import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from userbot import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP, BOT_VER, UPSTREAM_REPO_BRANCH, bot
 from userbot.events import register
 from userbot.utils import time_formatter
 
@@ -126,7 +126,7 @@ async def repo_is_here(wannasee):
     await wannasee.edit(
         f"**Hey**, __I am using__ 🔥 **Man-Userbot** 🔥\n\n"
         f"      __Thanks For Using me__\n\n"
-        f"✣ **Userbot Version :** `4.1@Man-Userbot`\n"
+        f"✣ **Userbot Version :** `{BOT_VER}@{UPSTREAM_REPO_BRANCH}`\n"
         f"✣ **Group Support :** [Sharing Userbot](t.me/sharinguserbot)\n"
         f"✣ **Owner Repo :** [Risman](t.me/mrismanaziz)\n"
         f"✣ **Repo :** [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot)\n"
