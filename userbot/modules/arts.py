@@ -153,19 +153,21 @@ async def typewriter(typew):
 
 CMD_HELP.update(
     {
-        "arts": "`.frog`\
-    \nUsage: arts Forg.\
-    \n\n`.dfrog`\
-    \nUsage: arts forg bundir\
-    \n\n`.strump`\
-    \nUsage: arts donald Trump.\
-    \n\n`.scina`\
-    \nUsage: arts presiden cina.\
-    \n\n`.wlcm`\
-    \nUsage: arts beruang welcome.\
-    \n\n`.gta`\
-    \nUsage: arts si jhonson.\
-    \n\n`.sthink`\
-    \nUsage: arts berfikir"
+        "arts": "**Plugin : **`arts`\
+        \n\n  •  **Syntax :** `.frog`\
+        \n  •  **Function : **arts Forg.\
+        \n\n  •  **Syntax :** `.dfrog`\
+        \n  •  **Function : **arts forg bundir.\
+        \n\n  •  **Syntax :** `.strump`\
+        \n  •  **Function : **arts donald Trump.\
+        \n\n  •  **Syntax :** `.scina`\
+        \n  •  **Function : **arts presiden cina.\
+        \n\n  •  **Syntax :** `.wlcm`\
+        \n  •  **Function : **arts beruang welcome.\
+        \n\n  •  **Syntax :** `.gta`\
+        \n  •  **Function : **arts si jhonson.\
+        \n\n  •  **Syntax :** `.sthink`\
+        \n  •  **Function : **arts berfikir\
+    "
     }
 )

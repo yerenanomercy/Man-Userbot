@@ -61,32 +61,6 @@ async def _(event):
     await event.delete()
 
 
-@register(outgoing=True, pattern=".key ?(.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-
-    danish = event.pattern_match.group(1)
-    chat = "@Carol5_bot"
-    await event.edit("Connecting...")
-    async with event.client.conversation(chat) as conv:
-        try:
-            response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1247032902)
-            )
-            await event.client.send_message(chat, "/key {}".format(danish))
-            response = await response
-        except YouBlockedUserError:
-            await event.reply("Boss! Please Unblock @Carol5_bot ")
-            return
-        if response.text.startswith(" "):
-            await event.edit("That bot is dead bro now this cmd is useless 😂😂")
-        else:
-            await event.client.send_message(event.chat_id, respond.message)
-    await bot(functions.messages.DeleteHistoryRequest(peer=chat, max_id=0))
-    await event.delete()
-
-
 @register(outgoing=True, pattern=".iban ?(.*)")
 async def _(event):
     if event.fwd_from:
@@ -120,8 +94,6 @@ CMD_HELP.update(
         \n  •  **Function : **Untuk mencari info bin cc.\
         \n\n  •  **Syntax :** `.vbv`\
         \n  •  **Function : **Checker Card Credit VBV (Verif By Visa).\
-        \n\n  •  **Syntax :** `.resi`\
-        \n  •  **Function : **Mencari Kunci Key.\
         \n\n  •  **Syntax :** `.iban`\
         \n  •  **Function : **Mencari Info Card Iban.\
     "

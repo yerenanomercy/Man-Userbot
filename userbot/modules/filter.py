@@ -147,25 +147,10 @@ async def filters_active(event):
 
 CMD_HELP.update(
     {
-        "filter": "`.filters`\
-    \nUsage: Melihat filter userbot yang aktif di obrolan.\
-    \n\n`.filter` <keyword> <balasan> atau balas ke pesan ketik .filter <keyword>\
-    \nUsage: Membuat filter di obrolan.\
-    \nBot Akan Membalas Jika Ada Yang Menyebut 'keyword' yang dibuat.\
-    \nBisa dipake ke media/sticker/vn/file.\
-    \n\n`.stop` <keyword>\
-    \nUsage: Untuk Nonaktifkan Filter.\
-    \n\n`.hapusbotfilter` <marie/rose>\
-    \nUsage: Menghapus semua filter yang ada di bot grup (Saat ini bot yang didukung: Marie, Rose.) dalam obrolan."
-    }
-)
-
-CMD_HELP.update(
-    {
         "filter": "**Plugin : **`filter`\
         \n\n  •  **Syntax :** `.filters`\
         \n  •  **Function : **Melihat filter userbot yang aktif di obrolan.\
-        \n\n  •  **Syntax :** `.filter` <keyword> <balasan> atau balas ke pesan ketik .filter <keyword>`\
+        \n\n  •  **Syntax :** `.filter` <keyword> <balasan> atau balas ke pesan ketik `.filter` <keyword>\
         \n  •  **Function : **Membuat filter di obrolan, Bot Akan Membalas Jika Ada Yang Menyebut 'keyword' yang dibuat. Bisa dipakai ke media/sticker/vn/file.\
         \n\n  •  **Syntax :** `.stop` <keyword>\
         \n  •  **Function : **Untuk Nonaktifkan Filter.\
